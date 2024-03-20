@@ -5,7 +5,7 @@ import log
 import time
 
 if testing:
-    import gps_test as gps
+    import gps_test_2 as gps
     import traccion_test as traccion
 else:    
     import gps
@@ -16,9 +16,14 @@ gps.inicializar()
 traccion.inicializar()
 
 start_time = 0
+elapsed_secs = 0
 d_pwm = 0
 
 while True:
+    if start_time != 0:
+        elapsed_secs = time.time() - start_time
+
+    log.print("secs", elapsed_secs)
 
     if not gps.lecturaValida():
         log.print("estado","espera") 
@@ -26,8 +31,6 @@ while True:
 
     else:
         if start_time == 0: start_time = time.time()
-
-        elapsed_secs = time.time() - start_time
 
         if(elapsed_secs < 1):
             log.print("estado","empezando") 

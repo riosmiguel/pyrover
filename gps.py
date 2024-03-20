@@ -83,22 +83,21 @@ def procesar(lat, lon, alt):
 	global phi	  			# direccion calculada luego de suavizar
 	global lecturas			# contador usado para inicializacion
 
-	lecturas = lecturas + 1
 
-	if(lecturas > 1):	
-		x_viejo = x
-		y_viejo = y
+	x_viejo = x
+	y_viejo = y
 
 	ned = navpy.lla2ned(lat, lon, alt, -31.713,-55.987, 140)
 	y = ned[0]
 	x = ned[1]
 	z = -ned[2]
 
-	if(lecturas > 1): 
-		dx = x - x_viejo
-		dy = y - y_viejo
-	else:
-		return # dx y dy no son validas todavia
+	lecturas = lecturas + 1
+
+	if(lecturas == 1):	return False # dx y dy no son validas todavia
+	
+	dx = x - x_viejo
+	dy = y - y_viejo
 
 	if(lecturas==2): # inicializar variables suavizadas
 		sm_dx = dx
@@ -109,3 +108,5 @@ def procesar(lat, lon, alt):
 	sm_dy = (sm_dy * alpha + dy) / (alpha + 1)
 
 	phi = (90 - math.degrees(math.atan2(sm_dy, sm_dx)) + 360) % 360 # da la direccion en grados respecto al Norte
+
+	return True

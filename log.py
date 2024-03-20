@@ -3,9 +3,12 @@ import os, datetime, sys, threading
 def inicializar():
 	global file_log
 	std_write('\033[2J') # Clear screen
-	std_write('\033[4;r') # Freeze 3 top lines
+	std_write('\033[1;1H') # Move cursor to home
 	std_write('Inicializando','\r\n')
 	std_write('\r\n')
+	std_write('...','\r\n')
+	std_write('\033[4;r') # Freeze 3 top lines
+	std_write('\033[4;1H') # Move cursor to log
 
 	folder_name = 'logs'
 	file_name = folder_name + '/log.txt'
@@ -27,6 +30,14 @@ def print(nombre:str, valor, decimales:int=None): # imprime msg en la pantalla, 
 
 		if nombre in nombres:
 			std_write('\r\n')
+			std_write('\0337') # Save cursor position
+			std_write('\033[3;1H') # Move cursor to headers position
+			
+			for n in nombres:
+				std_write(format(n), ' ')
+			
+			std_write('\0338') # Restore cursor position
+
 			if(linea_cnt % 100 == 0):
 				for n in nombres:
 					file_write(format(n), ',')
@@ -44,16 +55,6 @@ def print(nombre:str, valor, decimales:int=None): # imprime msg en la pantalla, 
 		nombres.append(nombre)
 		valores.append(v)
 		std_write(v, ' ')
-
-		if(linea_cnt % 5 == 0):
-			std_write('\0337') # Save cursor position
-			std_write('\033[3;1H') # Move cursor to headers position
-			
-			for n in nombres:
-				std_write(format(n), ' ')
-			std_write("\r\n")
-			
-			std_write('\0338') # Restore cursor position
 
 def print_msg(msg):
 	global lock 
