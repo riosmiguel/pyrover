@@ -7,6 +7,7 @@ phi = 0
 vel = 0
 
 def lecturaValida():
+	global fix, lecturas
 	if(fix >= 4 and lecturas > 2):
 		return True
 	else:

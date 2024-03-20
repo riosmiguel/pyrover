@@ -6,12 +6,10 @@
 **Ardusimple Pins:** 15, 14, 17, 24
 
 ## Para correr Str2str
-
-    /home/luis/RTKLIB-rtklib_2.4.3/app/consapp/str2str/gcc/str2str -out serial://ttyACM0:115200:8:n:1:off -in ntrip://192.168.1.9:2101/TBO &
-
+    cd /home/luis/RTKLIB-rtklib_2.4.3/app/consapp/str2str/gcc/
+    str2str -out serial://ttyACM0:115200:8:n:1:off -in ntrip://192.168.1.9:2101/TBO &
 
 ## Instalar RPi GNU/Linux 12 (bookworm)
-
 Para chequear version: cat /etc/os-release
 
 Python:
@@ -35,6 +33,14 @@ Instalar XRDP
     sudo adduser luis sudo
     echo 'luis ALL=(ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/010_luis-nopasswd
     sudo usermod -aG gpio luis
+
+Git  
+
+    git clone https://github.com/riosmiguel/pyrover.git
+    git config --global user.email jumiguelrios@gmail.com
+    git config --global user.name miguel
+
+# No necesario
 
 Instalar str2str
 
@@ -61,6 +67,10 @@ G13A5
 G13A6
 
 EPSG 5382
+
+## Mover archivos
+
+
 
 ## Pantalla adafruit
 

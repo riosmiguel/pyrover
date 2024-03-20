@@ -7,14 +7,14 @@ def inicializar():
 	std_write('Inicializando','\r\n')
 	std_write('\r\n')
 
-	try:
-		# intentar renombrar el archivo viejo 'log.txt', si existe
-		os.rename('logs/log.txt', datetime.datetime.now().strftime('logs/log-%H-%M-%S.txt'))
-	except:	
-		# si el try: rename generό una excepciόn (archivo no existe), pasar nomás
-		pass 
+	folder_name = 'logs'
+	file_name = folder_name + '/log.txt'
+	if not os.path.exists(folder_name): # crear carpeta logs si no existe
+		os.makedirs(folder_name) 
+	elif os.path.exists(file_name): # renombrar el archivo viejo si ya existe
+		os.rename(file_name, datetime.datetime.now().strftime(file_name+'-%H-%M-%S.txt'))
 
-	file_log = open('logs/log.txt', 'w+')
+	file_log = open(file_name, 'w+')
 
 nombres = []
 valores = []
