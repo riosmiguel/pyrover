@@ -9,14 +9,7 @@
     cd /home/luis/RTKLIB-rtklib_2.4.3/app/consapp/str2str/gcc/
     str2str -out serial://ttyACM0:115200:8:n:1:off -in ntrip://192.168.1.9:2101/TBO &
 
-## Instalar RPi GNU/Linux 12 (bookworm)
-Para chequear version: cat /etc/os-release
-
-Python:
-
-    sudo apt install git python3-pip
-    pip3 install --break-system-packages keyboard 
-    pip3 install --break-system-packages navpy
+# Instalar RPi 
 
 Habilitar puerto serial:
 
@@ -40,9 +33,39 @@ Git
     git config --global user.email jumiguelrios@gmail.com
     git config --global user.name miguel
 
-# No necesario
+Para chequear version: `cat /etc/os-release`
 
-Instalar str2str
+### Debian GNU/Linux 12 (bookworm)
+
+Python:
+
+    sudo apt install git python3-pip
+    pip3 install --break-system-packages keyboard 
+    pip3 install --break-system-packages navpy
+
+### Debian GNU/Linux 11 (bullseye)
+
+Python:
+
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+    pip install keyboard, navpy
+
+Agrandar SWAP  (RPi3 with only 1.0 Gb RAM)
+
+    sudo dphys-swapfile swapoff
+    sudo nano /etc/dphys-swapfile
+        CONF_SWAPSIZE=1024
+    sudo dphys-swapfile setup
+    sudo dphys-swapfile swapon
+    sudo reboot
+
+
+
+# Otros 
+
+Chequear undervoltage: `dmesg`
+
+## Instalar str2str
 
     https://discourse.agopengps.com/t/rtk-base-with-a-raspberry-pi4-and-simplertk2b/1849/2
     https://github.com/tomojitakasu/RTKLIB/tree/rtklib_2.4.3
@@ -59,13 +82,11 @@ Instalar str2str
     [  232.604357] cdc_acm 1-1.2:1.0: ttyACM0: USB ACM device
 
 
-## Mapas servicio geografico chaja
+## Mapas servicio geografico UY
 
-G13A2
-G13A3
-G13A5
-G13A6
-
+https://www.gub.uy/infraestructura-datos-espaciales/  
+https://visualizador.ide.uy/ideuy/  
+Chaja: G13A2, G13A3, G13A5, G13A6  
 EPSG 5382
 
 ## Mover archivos

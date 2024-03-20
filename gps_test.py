@@ -1,21 +1,36 @@
 
 lecturas = 0	# contador usado para inicializacion
 fix = 0			# fix quality del gps: 0 = Bad, 1 = GPS, 2 = DGPS, 4 = RTK Fixed, 5 = RTK Float
+x = 0
+y = 0
+phi = 0
 vel = 0
 
 def inicializar():
     pass
 
+test_list = [
+	[-31.71300, -55.98700, 140],
+	[-31.71300, -55.98700, 140],
+	[-31.71300, -55.98700, 140],
+	[-31.71300, -55.98700, 140],
+	[-31.71299, -55.98699, 140], # 0.94 1.10 40
+	[-31.71298, -55.98698, 140], # 1.89 2.21 40
+	[-31.71297, -55.98697, 140], # 
+	[-31.71296, -55.98696, 140],
+	[-31.71295, -55.98695, 140], # 4.7 5.5
+	[-31.7, -55.9, 140]
+]
+
 def lecturaValida():
-	
-	if(lecturas == 0):   
-		procesar(-31.7131, -55.9871, 140)
-		procesar(-31.7132, -55.9872, 140)
-	elif(lecturas == 2): procesar(-31.7133, -55.9873, 140)
-	elif(lecturas == 3): procesar(-31.7134, -55.9874, 140)
-	elif(lecturas == 4): procesar(-31.7135, -55.9875, 140)
-	
-	return True
+	if(lecturas >= len(test_list)):
+		return False
+	valores = test_list[lecturas]
+	procesar(valores[0], valores[1], valores[2])
+	if(lecturas == 1):
+		return False
+	else:
+		return True
 
 import navpy, math
 
