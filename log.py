@@ -56,18 +56,17 @@ def print(nombre:str, valor, decimales:int=None): # imprime msg en la pantalla, 
 		valores.append(v)
 		std_write(v, ' ')
 
-def print_msg(msg):
+def print_msg(msg:str):
 	global lock 
+	time = datetime.datetime.now().strftime("%y/%m/%d %H:%M:%S ")
 	with lock:
 		std_write("\r\n")
+		std_write(time)
 		std_write(msg)
-
-def print_status(msg):
-	global lock
-	with lock:
 		std_write('\0337') # Save cursor position
 		std_write('\033[1;1H') # Move cursor to status position
-		std_write(msg,'         ')
+		std_write(time)
+		std_write(msg[:80].replace('\n',' ').replace('\r',''))
 		std_write('\0338') # Restore cursor position
 
 def std_write(*args):

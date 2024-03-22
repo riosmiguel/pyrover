@@ -15,11 +15,11 @@ log.inicializar()
 gps.inicializar()
 traccion.inicializar()
 
-start_time = 0
-elapsed_secs = 0
-d_pwm = 0
+def tick():
+    start_time = 0
+    elapsed_secs = 0
+    d_pwm = 0
 
-while True:
     if start_time != 0:
         elapsed_secs = time.time() - start_time
 
@@ -65,4 +65,20 @@ while True:
     log.print("y",gps.y, 3)
     log.print("phi",gps.phi)
     log.print("vel",gps.vel)
-    time.sleep(0.1)
+
+import threading, traceback
+
+while True:
+    interval = 0.1
+    tick_start_time = time.time()
+    try:
+        tick()
+    except Exception:
+        log.print_msg(traceback.format_exc(-1))
+
+    duration = time.time() - tick_start_time
+    log.print("cpu %", duration * 100 / interval, 0)
+    if(duration > interval):
+        log.print_msg("Tick no pudo mantener intervalo")
+    else:
+        time.sleep(interval - time.time() % interval)

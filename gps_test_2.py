@@ -18,6 +18,22 @@ test_list = [
 	[   0.0 ,   0.0 ],
 	[   0.0 ,   0.0 ],
 	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ],
+	[   0.0 ,   0.0 ]
 ]
 
 import navpy, math
@@ -37,6 +53,9 @@ def lecturaValida():
 	y = test_list[lecturas][1]
 
 	lecturas = lecturas + 1
+
+	if(lecturas % 10 == 0):
+		return test_list[100]
 
 	if(lecturas == 1):	
 		return False  # dx y dy no son validas todavia
