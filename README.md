@@ -31,7 +31,7 @@ Git
 
     git clone https://github.com/riosmiguel/pyrover.git
     git config --global user.email jumiguelrios@gmail.com
-    git config --global user.name miguel
+    git config --global user.name miguel2
 
 Para chequear version: `cat /etc/os-release`
 
@@ -40,7 +40,6 @@ Para chequear version: `cat /etc/os-release`
 Python:
 
     sudo apt install git python3-pip
-    pip3 install --break-system-packages keyboard 
     pip3 install --break-system-packages navpy
 
 ### Debian GNU/Linux 11 (bullseye)
@@ -48,10 +47,26 @@ Python:
 Python:
 
     sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
-    pip install keyboard, navpy
+    pip install navpy
 
-Agrandar SWAP  (RPi3 with only 1.0 Gb RAM)
+### RPi3 with only 1.0 Gb RAM
 
+Usar zram
+    git clone https://github.com/foundObjects/zram-swap
+    sudo ./install.sh
+
+Overclock
+    sudo watch "vcgencmd measure_temp && cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"
+    sudo nano /boot/config.txt
+        arm_freq=1400
+        core_freq=500
+        gpu_freq=500
+        over_voltage=4
+        sdram_freq=500
+    sudo stressberry-run -n "My Test" -d 100 -i 30 -c 4 mytest1.dat
+
+
+Agrandar SWAP (no necesario)
     sudo dphys-swapfile swapoff
     sudo nano /etc/dphys-swapfile
         CONF_SWAPSIZE=1024
