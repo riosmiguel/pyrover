@@ -9,37 +9,18 @@ vel = 0
 def inicializar():
 	pass
 
-test_list = [
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ],
-	[   0.0 ,   0.0 ]
-]
+test_dict = {
+	0.0: [1.0, 1.0],
+	5.0: [1.0, 0.0]
+}
 
 import navpy, math
 
+test_vx = 0
+test_vy = 0
+
 def lecturaValida():
-	global x, y, fix
+	global x, y, fix, test_vx, test_vy, test_dict
 	global sm_dx, sm_dy		# delta x, delta y, suavizadas
 	global phi	  			# direccion calculada luego de suavizar
 	global lecturas			# contador usado para inicializacion
@@ -47,15 +28,15 @@ def lecturaValida():
 	x_viejo = x
 	y_viejo = y
 
-	if(lecturas >= len(test_list)): return False
+	secs = lecturas/10.0
+	if secs in test_dict:
+		test_vx = test_dict[secs][0]/10.0
+		test_vy = test_dict[secs][1]/10.0
 
-	x = test_list[lecturas][0]
-	y = test_list[lecturas][1]
+	x = x + test_vx
+	y = y + test_vy
 
 	lecturas = lecturas + 1
-
-	if(lecturas % 10 == 0):
-		return test_list[100]
 
 	if(lecturas == 1):	
 		return False  # dx y dy no son validas todavia

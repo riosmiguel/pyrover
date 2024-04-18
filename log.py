@@ -2,13 +2,6 @@ import os, datetime, sys, threading
 
 def inicializar():
 	global file_log
-	std_write('\033[2J') # Clear screen
-	std_write('\033[1;1H') # Move cursor to home
-	std_write('Inicializando','\r\n')
-	std_write('\r\n')
-	std_write('...','\r\n')
-	std_write('\033[4;r') # Freeze 3 top lines
-	std_write('\033[4;1H') # Move cursor to log
 
 	folder_name = 'logs'
 	file_name = folder_name + '/log.txt'
@@ -20,8 +13,6 @@ def inicializar():
 	file_log = open(file_name, 'w+')
 
 nombres = []
-valores = []
-linea_cnt = 0
 lock = threading.Lock()
 
 def print(nombre:str, valor, decimales:int=None): # imprime msg en la pantalla, guarda msg en el log_file y agrega un tab
@@ -30,31 +21,16 @@ def print(nombre:str, valor, decimales:int=None): # imprime msg en la pantalla, 
 
 		if nombre in nombres:
 			std_write('\r\n')
-			std_write('\0337') # Save cursor position
-			std_write('\033[3;1H') # Move cursor to headers position
-			
-			for n in nombres:
-				std_write(format(n), ' ')
-			
-			std_write('\0338') # Restore cursor position
-
-			if(linea_cnt % 100 == 0):
-				for n in nombres:
-					file_write(format(n), ',')
-				file_write('\r\n')
-
-			for s in valores:
-				file_write(s, ',')
 			file_write('\r\n')
-		
-			linea_cnt = linea_cnt + 1
+			file_log.flush()
 			nombres = []
-			valores = []
-		
-		v = format(valor,decimales)
+
 		nombres.append(nombre)
-		valores.append(v)
-		std_write(v, ' ')
+		v = format(valor,decimales)
+		std_write(v)
+		#std_write('=', nombre, ' ')
+		file_write(v)
+
 
 def print_msg(msg:str):
 	global lock 
@@ -63,11 +39,6 @@ def print_msg(msg:str):
 		std_write("\r\n")
 		std_write(time)
 		std_write(msg)
-		std_write('\0337') # Save cursor position
-		std_write('\033[1;1H') # Move cursor to status position
-		std_write(time)
-		std_write(msg[:80].replace('\n',' ').replace('\r',''))
-		std_write('\0338') # Restore cursor position
 
 def std_write(*args):
 	for a in args:
@@ -76,11 +47,6 @@ def std_write(*args):
 def file_write(*args):
 	for a in args:
 		file_log.write(a)
-
-def writeLineEnd():
-	sys.stdout.write("\r\n")
-	file_log.write("\r\n")
-	file_log.flush()
 
 def format(v, decimales=None):
 	if isinstance(v, int):

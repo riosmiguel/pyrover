@@ -15,8 +15,10 @@ log.inicializar()
 gps.inicializar()
 traccion.inicializar()
 
+start_time = 0
+
 def tick():
-    start_time = 0
+    global start_time
     elapsed_secs = 0
     d_pwm = 0
 
@@ -41,7 +43,7 @@ def tick():
             traccion.set_pwm_suma_y_diff(0,0)
 
         else:
-            log.print("estado","trabajando") 
+            log.print("estado","trabaja") 
             #calcular target_phi
             if(elapsed_secs < 15): target_phi = 40
             elif(elapsed_secs < 20): target_phi = 220 
