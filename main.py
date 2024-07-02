@@ -82,7 +82,7 @@ while True:
         log.print_msg(traceback.format_exc(-1))
 
     duration = time.time() - tick_start_time
-    log.print("cpu %", duration * 100 / interval, 0)
+    #log.print("cpu %", duration * 100 / interval, 0)
     if(duration > interval):
         log.print_msg("Tick no pudo mantener intervalo")
     else:
