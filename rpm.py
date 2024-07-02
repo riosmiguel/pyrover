@@ -19,6 +19,8 @@ def go_rpm():
     GPIO.setup(SENSOR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Configura el pin como entrada con resistencia pull-up
 
     GPIO.add_event_detect(SENSOR_PIN, GPIO.FALLING, callback=sensor_callback)
+    
+    global activation_count
     try:
         while True:
             activation_count = 0
