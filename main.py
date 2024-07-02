@@ -1,9 +1,6 @@
 
 testing = True
 
-import log
-import time
-
 if testing:
     import gps_test_2 as gps
     import traccion_test as traccion
@@ -11,9 +8,14 @@ else:
     import gps
     import traccion
 
+import log
+import time
+import rpm
+
 log.inicializar()
 gps.inicializar()
 traccion.inicializar()
+rpm.inicializar()
 
 start_time = 0
 
@@ -67,6 +69,7 @@ def tick():
     log.print("y",gps.y, 3)
     log.print("phi",gps.phi)
     log.print("vel",gps.vel)
+    log.print("rpm",rpm.activation_count)
 
 import threading, traceback
 

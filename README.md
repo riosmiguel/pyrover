@@ -78,6 +78,10 @@ Agrandar SWAP (no necesario)
 
 # Otros 
 
+## Windows (testing)
+    
+    pip install RPi.GPIO
+
 Chequear undervoltage: `dmesg`
 
 ## Instalar str2str
