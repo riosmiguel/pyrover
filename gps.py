@@ -77,8 +77,8 @@ def dmmToFloat(s, hemisphere):
 
 import navpy, math
 
-def procesar(lat, lon, alt):
-	global x, y, z 			# coordenadas NED
+def procesar(lat, lon, alt): # datos
+	global x, y, z 			# coordenadas NED 
 	global sm_dx, sm_dy		# delta x, delta y, suavizadas
 	global phi	  			# direccion calculada luego de suavizar
 	global lecturas			# contador usado para inicializacion

@@ -7,6 +7,7 @@ if testing:
 else:    
     import gps
     import traccion
+    import en_campo
 
 import log
 import time
@@ -45,14 +46,25 @@ def tick():
             traccion.set_pwm_suma_y_diff(0,0)
 
         else:
-            log.print("estado","trabaja") 
-            #calcular target_phi
-            if(elapsed_secs < 15): target_phi = 40
-            elif(elapsed_secs < 20): target_phi = 220 
-            elif(elapsed_secs < 35): target_phi = 310 
-            elif(elapsed_secs < 40): target_phi = 40
+            log.print("estado","trabaja")
+            # 1) IR HACIA EL ORIGEN
+            x = gps.x
+            y = gps.y
+            while ((x**2 + y**2) > 100): # rover a más de 10 cm, calcular dirección hacia (0,0)
+                target_phi = 
+            # a menos de 10cm
+             
 
-            #calcular PWM basado en phi y target_phi
+            # 2) SEGUIR PARALELAS
+            target_phi = en_campo.target_phi
+
+
+            #if(elapsed_secs < 15): target_phi = 40
+            #elif(elapsed_secs < 20): target_phi = 220 
+            #elif(elapsed_secs < 35): target_phi = 310 
+            #elif(elapsed_secs < 40): target_phi = 40
+
+            #calcular PWM basado en phi (dirección real del rover) y target_phi (dirección ideal)
             d_phi = gps.phi - target_phi
             if (abs(d_phi) > 180):
                 if(d_phi>0):
