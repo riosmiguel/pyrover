@@ -1,5 +1,6 @@
 
-testing = True
+
+testing = False
 
 if testing:
     import gps_test_2 as gps
@@ -13,7 +14,7 @@ import log
 import time
 import rpm
 
-log.inicializar()
+# log.inicializar()
 gps.inicializar()
 traccion.inicializar()
 rpm.inicializar()
@@ -37,28 +38,21 @@ def tick():
     else:
         if start_time == 0: start_time = time.time()
 
-        if(elapsed_secs < 1):
+        if(elapsed_secs < 1): # empieza moviendo en recta
             log.print("estado","empezando") 
             traccion.set_pwm_suma_y_diff(50, 0)
 
-        elif(elapsed_secs > 40):
+        elif(elapsed_secs > 400): # eliminar esto,terminar cuando termina el trabajo
             log.print("estado","fin") 
             traccion.set_pwm_suma_y_diff(0,0)
 
         else:
             log.print("estado","trabaja")
-            # 1) IR HACIA EL ORIGEN
-            x = gps.x
-            y = gps.y
-            while ((x**2 + y**2) > 100): # rover a más de 10 cm, calcular dirección hacia (0,0)
-                target_phi = 
-            # a menos de 10cm
-             
 
-            # 2) SEGUIR PARALELAS
+            # cuando sigue una paralela p, target_phi es la pendiente de p corregida por distancia rover-p
+            # cuando va hacia un punto, es la dirección hacia ese punto
             target_phi = en_campo.target_phi
-
-
+             
             #if(elapsed_secs < 15): target_phi = 40
             #elif(elapsed_secs < 20): target_phi = 220 
             #elif(elapsed_secs < 35): target_phi = 310 
@@ -94,7 +88,7 @@ while True:
         log.print_msg(traceback.format_exc(-1))
 
     duration = time.time() - tick_start_time
-    #log.print("cpu %", duration * 100 / interval, 0)
+    log.print("cpu %", duration * 100 / interval, 0)
     if(duration > interval):
         log.print_msg("Tick no pudo mantener intervalo")
     else:

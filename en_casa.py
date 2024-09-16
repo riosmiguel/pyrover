@@ -1,7 +1,7 @@
 # --------- INPUT POLÍGONO y DIAMETRO DE HELICE ----------- 
-# a) en Google Earth, medir distancias, dibujar un polígono CONVEXO Y CERRADO, guardar proyecto y poner nombre
-# b) en los 3 puntos a la izquierda, exportar como archivo kml a carpeta de descargas
-# c) abrir el archivo con notepad, buscar el string de coordenadas, copiar y pegar en polig abajo
+# en Google Earth, abrir un proyecto, ponerle nombre, ir a medir, dibujar un polígono CONVEXO Y CERRADO
+# en los 3 puntos a la izquierda, exportar como archivo kml a carpeta de descargas
+# abrir el archivo con notepad, buscar el string de coordenadas, copiar y pegar en polig abajo
 
 polig = (-55.33894967257996,-31.87125565111706,0 -55.33944395494188,-31.87127192335436,0 -55.33925852513207,-31.87154862651609,0 -55.33901496814629,-31.87158530231552,0 -55.33894967257996,-31.87125565111706,0 
 )
@@ -170,6 +170,7 @@ while (i > i_max): # hallar ecuaciones de aristas por vértices >= i_max
 
 
 
+exit()
 
 # ------------- OUTPUT: tg de las paralelas a arista V0 V1, coordenadas de cortes -------------
 print ("tg de las paralelas= ", tg_p)
