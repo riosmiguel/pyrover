@@ -170,8 +170,6 @@ while (i > i_max): # hallar ecuaciones de aristas por vértices >= i_max
 
 
 
-exit()
-
 # ------------- OUTPUT: tg de las paralelas a arista V0 V1, coordenadas de cortes -------------
 print ("tg de las paralelas= ", tg_p)
 print ("cortes del lado V1")
@@ -181,12 +179,13 @@ print ("cortes del lado V0")
 print ("x2=",x2)
 print ("y2=",y2)
 
-import pandas as pd  # Importar pandas para manejar el DataFrame
 
-mi_lista = list(x1) # Convertir el array a una lista para usarlo en un DataFrame de pandas
+#import pandas as pd  # Importar pandas para manejar el DataFrame
 
-df = pd.DataFrame({'Valores': mi_lista}) # Crear un DataFrame de pandas con la lista
+#mi_lista = list(x1) # Convertir el array a una lista para usarlo en un DataFrame de pandas
 
-df.to_excel('data_py_rover.xlsx', index=True)  # Exporta el DataFrame a un archivo Excel
+#df = pd.DataFrame({'Valores': mi_lista}) # Crear un DataFrame de pandas con la lista
 
-print (mi_lista)
+#df.to_excel('data_py_rover.xlsx', index=True)  # Exporta el DataFrame a un archivo Excel
+
+#print (mi_lista)

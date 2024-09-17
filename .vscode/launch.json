@@ -8,7 +8,7 @@
             "name":"Launch",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/en_casa.py",
+            "program": "${workspaceFolder}/main.py",
             "console": "integratedTerminal"
         }
     ]
