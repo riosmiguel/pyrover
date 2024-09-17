@@ -1,23 +1,20 @@
 
-
-testing = False
+testing = True
 
 if testing:
-    import gps_test_2 as gps
     import traccion_test as traccion
 else:    
-    import gps
     import traccion
-    import en_campo
-
+    
+import en_campo
 import log
 import time
 import rpm
 
-# log.inicializar()
-gps.inicializar()
+log.inicializar()
 traccion.inicializar()
 rpm.inicializar()
+en_campo.inicializar()
 
 start_time = 0
 
@@ -26,12 +23,13 @@ def tick():
     elapsed_secs = 0
     d_pwm = 0
 
+    gps = en_campo.gps
     if start_time != 0:
         elapsed_secs = time.time() - start_time
 
     log.print("secs", elapsed_secs)
 
-    if not gps.lecturaValida():
+    if gps.fix <= 3:
         log.print("estado","espera") 
         traccion.set_pwm_suma_y_diff(0, 0)
 
@@ -42,7 +40,7 @@ def tick():
             log.print("estado","empezando") 
             traccion.set_pwm_suma_y_diff(50, 0)
 
-        elif(elapsed_secs > 400): # eliminar esto,terminar cuando termina el trabajo
+        elif(en_campo.parar == 1): # terminar cuando termina el trabajo
             log.print("estado","fin") 
             traccion.set_pwm_suma_y_diff(0,0)
 
@@ -80,7 +78,7 @@ def tick():
 import threading, traceback
 
 while True:
-    interval = 0.1
+    interval = 0.2
     tick_start_time = time.time()
     try:
         tick()
@@ -91,5 +89,6 @@ while True:
     log.print("cpu %", duration * 100 / interval, 0)
     if(duration > interval):
         log.print_msg("Tick no pudo mantener intervalo")
+        print ("duracion: ",duration,"    intervalo: ",interval)
     else:
         time.sleep(interval - time.time() % interval)

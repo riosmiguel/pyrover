@@ -1,3 +1,5 @@
+import en_campo
+
 # --------- INPUT POLÍGONO y DIAMETRO DE HELICE ----------- 
 # en Google Earth, abrir un proyecto, ponerle nombre, ir a medir, dibujar un polígono CONVEXO Y CERRADO
 # en los 3 puntos a la izquierda, exportar como archivo kml a carpeta de descargas
@@ -54,6 +56,9 @@ xV_min = min (X_aux)
 i_xV_min = X_aux.index(xV_min)
 yV_min = Y_aux [i_xV_min]
 # print ("punto mas al oeste =",i_xV_min, "   ", xV_min, yV_min,)
+
+en_campo.gps.x_tras = xV_min
+en_campo.gps.y_tras = yV_min
 
 import array as X
 X = X.array ('f',[])

@@ -27,7 +27,7 @@ def go_rpm():
 
             time.sleep(1)
 
-            print(f"Activaciones por segundo: {activation_count}")
+            #print(f"Activaciones por segundo: {activation_count}")
 
     except KeyboardInterrupt:
         print("Programa terminado por el usuario")
