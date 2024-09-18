@@ -3,13 +3,15 @@ testing = True
 
 if testing:
     import traccion_test as traccion
+    import rpm_test as rpm
 else:    
     import traccion
+    import rpm
     
 import en_campo
 import log
 import time
-import rpm
+
 
 log.inicializar()
 traccion.inicializar()

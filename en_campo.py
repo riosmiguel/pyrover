@@ -4,7 +4,7 @@
 testing = True
 
 if testing:
-    import gps_test as gps
+    import gps_test_xy as gps
 else:
     import gps
 
