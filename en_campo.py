@@ -63,7 +63,7 @@ def go_en_campo():
         time.sleep(1)
         # print("phi =", target_phi, "    x =", x, "    y =", y)
     
-    print ("salió del origen")
+    print ("llegó al origen")
 
     # print ("     llegó al origen   x2(0) =", x2[0], "y2(0) =", y2[0])
 
@@ -80,7 +80,8 @@ def go_en_campo():
         # ---- SEGUIR PARALELA DESDE (x2(i),y2(i)) A (x1(i),y1(i) ----
 
         while  (x - x1[i])**2 + (y - y1[i])**2 > 100: # cuadrado de distancia de r al corte (x1(i, y1(i))
-            
+
+            time.sleep(0.1)
             x = gps.x # leer coordenadas gps en movimiento real
             y = gps.y
 
@@ -106,6 +107,7 @@ def go_en_campo():
         dist_rP_sq = 100
 
         while dist_rP_sq > 3:
+            time.sleep(0.1)
             x = gps.x # leer coordenadas gps en movimiento real
             y = gps.y
             # x = x + math.sin(target_phi * 3.141593 / 180) # simular mov
@@ -134,7 +136,8 @@ def go_en_campo():
         # print("                                      direccion=", round(phi_par))
 
         while  (x - x2[i+1])**2 + (y - y2[i+1])**2 > 100: # cuadrado distancia de r al corte
-            
+
+            time.sleep(0.1)
             x = gps.x
             y = gps.y
 
@@ -158,6 +161,7 @@ def go_en_campo():
         dist_rP_sq = 100
 
         while dist_rP_sq > 3:
+            time.sleep(0.1)
             x = gps.x # leer coordenadas en movimiento real
             y = gps.y
 
