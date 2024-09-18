@@ -6,6 +6,9 @@ y = 0
 phi = 0
 vel = 0
 
+x_tras = 0		# traslacion para que queden numeros mas chicos
+y_tras = 0
+
 def lecturaValida():
 	global fix, lecturas
 	if(fix >= 4 and lecturas > 2):
@@ -82,14 +85,15 @@ def procesar(lat, lon, alt): # datos
 	global sm_dx, sm_dy		# delta x, delta y, suavizadas
 	global phi	  			# direccion calculada luego de suavizar
 	global lecturas			# contador usado para inicializacion
+	global x_tras, y_tras   # traslacion para que queden numeros mas chicos
 
 
 	x_viejo = x
 	y_viejo = y
 
 	ned = navpy.lla2ned(lat, lon, alt, -31.713,-55.987, 140)
-	y = ned[0]
-	x = ned[1]
+	y = ned[0] - y_tras
+	x = ned[1] - x_tras
 	z = -ned[2]
 
 	lecturas = lecturas + 1
