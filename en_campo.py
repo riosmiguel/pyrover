@@ -57,6 +57,8 @@ def go_en_campo():
         # y = y + math.cos(target_phi * 3.141593 / 180)
         dist_rO_sq = x**2 + y**2
         target_phi = (90 - math.degrees(math.atan2(y, x)) + 360) % 360 + 180 # sentido hacia el origen
+        if target_phi >360:
+            target_phi =target_phi - 360
         print ("ir al origen con dirección ",target_phi)
         time.sleep(1)
         # print("phi =", target_phi, "    x =", x, "    y =", y)
@@ -95,7 +97,9 @@ def go_en_campo():
         
         # ------------- DOBLAR 90 GRADOS A LA IZQUIERDA ------------------------
 
-        target_phi = phi_par - 90 + 360 *(phi_par < 90)
+        target_phi = phi_par - 90
+        if target_phi <0:
+            target_phi =target_phi + 360
         time.sleep(2) # en mov real, tiempo para que el rover doble 90 grados
 
         # ------------------ IR HACIA CORTE P(x1(i+1),y1(i+1))-----------------------
@@ -107,19 +111,25 @@ def go_en_campo():
             # x = x + math.sin(target_phi * 3.141593 / 180) # simular mov
             # y = y + math.cos(target_phi * 3.141593 / 180)
             dist_rP_sq = (x-x1[i+1])**2 + (y-y1[i+1])**2 
-            target_phi = (90 - math.degrees(math.atan2(y-y1[i+1], x-x1[i+1])) + 360) % 360 + 180 
+            target_phi = (90 - math.degrees(math.atan2(y-y1[i+1], x-x1[i+1])) + 360) % 360 + 180
+            if target_phi >360:
+                target_phi =target_phi - 360
             # print("phi =", target_phi, "    x =", x, "    y =", y)
 
         # print ("      llegó al corte x1(",i+1,")=",x1[i+1],"  y1(",i+1,")=", y1[i+1])
 
         # ------------------------ DOBLAR 90 GRADOS A LA IZQUIERDA ------------
 
-        target_phi = phi_par - 180 + 360 *(phi_par < 180)
+        target_phi = phi_par - 180
+        if target_phi <0:
+            target_phi =target_phi + 360
         time.sleep(2)
 
         # -------------SEGUIR PARALELA DESDE (x1(i+1),y1(i+1)) A (x2(i+1),y2(i+1) -----------------
         Y0_p = ancho * aux * (i+1)
-        phi_par = phi_par - 180 + 360 *(phi_par < 180) # la paralela tiene dirección contraria
+        phi_par = phi_par - 180 # la paralela tiene dirección contraria
+        if target_phi <0:
+            target_phi =target_phi + 360
 
         # print("                                      direccion=", round(phi_par))
 
@@ -139,7 +149,9 @@ def go_en_campo():
         
         # ------------- DOBLAR 90 GRADOS A LA DERECHA ------------------------
 
-        target_phi = phi_par + 90 - 360 *(target_phi > 270)
+        target_phi = phi_par + 90
+        if target_phi >360:
+            target_phi =target_phi - 360
         time.sleep(2)
 
         # --------------- IR HACIA (x2(i+2),y2(i+2) -------------------------
@@ -157,7 +169,9 @@ def go_en_campo():
                 parar = 1
             
             dist_rP_sq = (x-x2[i+2])**2 + (y-y2[i+2])**2 
-            target_phi = (90 - math.degrees(math.atan2(y-y2[i+2], x-x2[i+2])) + 360) % 360 + 180 
+            target_phi = (90 - math.degrees(math.atan2(y-y2[i+2], x-x2[i+2])) + 360) % 360 + 180
+            if target_phi >360:
+                target_phi =target_phi - 360
 
     # print ("      llegó al corte x2(",i+2,")=",x2[i+2],"  y2(",i+2,")=",y2[i+2])
     print("terminó el trabajo por el lado 1")
