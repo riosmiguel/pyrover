@@ -5,9 +5,8 @@ import en_campo
 # en los 3 puntos a la izquierda, exportar como archivo kml a carpeta de descargas
 # abrir el archivo con notepad, buscar el string de coordenadas, copiar y pegar en polig abajo
 
-polig = (-55.33894967257996,-31.87125565111706,0 -55.33944395494188,-31.87127192335436,0 -55.33925852513207,-31.87154862651609,0 -55.33901496814629,-31.87158530231552,0 -55.33894967257996,-31.87125565111706,0 
-)
-ancho = 700 # es el ancho entre paralelas = diámetro de la hélice en cm
+polig = (-55.98549616817479,-31.71130604016881,0 -55.98540735137888,-31.71122703117029,0 -55.98540335547212,-31.71117432834967,0 -55.98546381092148,-31.71122060239414,0 -55.98549616817479,-31.71130604016881,0)
+ancho = 90 # es el ancho entre paralelas = diámetro de la hélice en cm
 
 # --------------------------------------------------------
 

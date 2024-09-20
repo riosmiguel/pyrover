@@ -50,7 +50,7 @@ def go_en_campo():
 
 
     while dist_rO_sq > 3:
-        time.sleep(0.1) # sleep para que no quede usando 100% cpu
+        time.sleep(0.1) # sleep para que el llamado al gps no quede usando 100% cpu
         x = gps.x
         y = gps.y
         # x = x + math.sin(target_phi * 3.141593 / 180) # simular mov del rover
@@ -85,8 +85,8 @@ def go_en_campo():
 
             # x = x + 10*math.sin(target_phi * 3.141593 / 180) # simular mov del rover
             # y = y + 10*math.cos(target_phi * 3.141593 / 180)
-            dist_rp = (y - x*tg_p - Y0_p)/aux # distancia rover a paralela i
-            target_phi = phi_par + dist_rp * 1 # target_phi tiende hacia ph_par
+            dist_rp = (y - x*tg_p - Y0_p)/aux # distancia rover a paralela i, tiende a 0
+            target_phi = phi_par + dist_rp * 1 # target_phi tiende hacia phi_par
         
         # print("      llegó al corte x1(",i,")=",x1[i],"  y1(",i,")=",y1[i])
         if i+1 >= num_par :
@@ -175,5 +175,5 @@ def go_en_campo():
                 target_phi = target_phi - 360
 
     # print ("      llegó al corte x2(",i+2,")=",x2[i+2],"  y2(",i+2,")=",y2[i+2])
-    print("terminó el trabajo por el lado 1")
+    print("terminó el trabajo por el lado 2")
     parar = 1
