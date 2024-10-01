@@ -1,13 +1,13 @@
 
 lecturas = 0	# contador usado para inicializacion
 fix = 0			# fix quality del gps: 0 = Bad, 1 = GPS, 2 = DGPS, 4 = RTK Fixed, 5 = RTK Float
-x = 0
+x = 0			# coordenadas **** EN METROS ******
 y = 0
 phi = 0
 vel = 0
 
-x_tras = 0		# traslacion para que queden numeros mas chicos
-y_tras = 0
+#x_tras = 0		# traslacion para que queden numeros mas chicos
+#y_tras = 0
 
 def lecturaValida():
 	global fix, lecturas
@@ -81,20 +81,20 @@ def dmmToFloat(s, hemisphere):
 import navpy, math
 
 def procesar(lat, lon, alt): # datos
-	global x, y, z 			# coordenadas NED 
+	global x, y, z 			# coordenadas NED **** EN METROS ******
 	global sm_dx, sm_dy		# delta x, delta y, suavizadas
 	global phi	  			# direccion calculada luego de suavizar
 	global lecturas			# contador usado para inicializacion
-	global x_tras, y_tras   # traslacion para que queden numeros mas chicos
+	#global x_tras, y_tras   # traslacion para que queden numeros mas chicos
 
 
 	x_viejo = x
 	y_viejo = y
 
-	ned = navpy.lla2ned(lat, lon, alt, -31.713,-55.987, 140)
-	y = ned[0] - y_tras
-	x = ned[1] - x_tras
-	z = -ned[2]
+	ned = navpy.lla2ned(lat, lon, alt, -31.711,-55.985, 0)
+	y = ned[0] # **** EN METROS ******
+	x = ned[1]
+	#z = -ned[2]
 
 	lecturas = lecturas + 1
 

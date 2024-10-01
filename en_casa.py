@@ -5,7 +5,7 @@ import en_campo
 # en los 3 puntos a la izquierda, exportar como archivo kml a carpeta de descargas
 # abrir el archivo con notepad, buscar el string de coordenadas, copiar y pegar en polig abajo
 
-polig = (-55.98549616817479,-31.71130604016881,0 -55.98540735137888,-31.71122703117029,0 -55.98540335547212,-31.71117432834967,0 -55.98546381092148,-31.71122060239414,0 -55.98549616817479,-31.71130604016881,0)
+polig = (-55.98540727320524,-31.71119780451892,0 -55.98536131094141,-31.71115277071806,0 -55.98533729153682,-31.71108297998741,0 -55.98539130662363,-31.71114086210723,0 -55.98540727320524,-31.71119780451892,0)
 ancho = 90 # es el ancho entre paralelas = diámetro de la hélice en cm
 
 # --------------------------------------------------------
@@ -40,7 +40,7 @@ alt = 130
 
 for i in range (0, cV):
     
-    ned = navpy.lla2ned (LLA_LAT [i], LLA_LON [i], alt, -31.8718,-55.33825, 130)
+    ned = navpy.lla2ned (LLA_LAT [i], LLA_LON [i], alt, -31.711,-55.985, 0)
 
     Y_aux.append (round (ned[0]*100))
     X_aux.append (round (ned[1]*100))
@@ -56,8 +56,8 @@ i_xV_min = X_aux.index(xV_min)
 yV_min = Y_aux [i_xV_min]
 # print ("punto mas al oeste =",i_xV_min, "   ", xV_min, yV_min,)
 
-en_campo.gps.x_tras = xV_min
-en_campo.gps.y_tras = yV_min
+#en_campo.gps.x_tras = xV_min
+#en_campo.gps.y_tras = yV_min
 
 import array as X
 X = X.array ('f',[])
@@ -75,9 +75,9 @@ for i in range (0, i_xV_min):
 X.append (0) # cerrar el polígono repitiendo (0,0)
 Y.append (0)
 
-print ("coordenadas XY con (0,0) en el punto más al Oeste y cerrando en (0,0)")
-print(X)
-print(Y)
+print ("coordenadas XY con (0,0) al Oeste ")
+print("X= ", X)
+print("Y= ", Y)
 
 # 3) DETERMINAR LAS RECTAS PARALELAS QUE CORTAN AL POLIGONO
 

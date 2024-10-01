@@ -39,7 +39,8 @@ def go_en_campo():
     Y = en_casa.Y
 
     print("en_campo espera fix")
-    while(gps.fix <= 3):
+    while(gps.fix < 4):
+        print("fix =", gps.fix)
         time.sleep(0.1)
 
     # ---------------- IR HACIA EL ORIGEN -----------------------
@@ -48,23 +49,25 @@ def go_en_campo():
     y = gps.y  
     dist_rO_sq = 100 # cuadrado de distancia rover al origen
 
-
     while dist_rO_sq > 3:
-        time.sleep(0.1) # sleep para que el llamado al gps no quede usando 100% cpu
-        x = gps.x
-        y = gps.y
+        time.sleep(0.1) # sleep para que no quede usando 100% cpu
+        x = gps.x*100 - en_casa.xV_min 
+        y = gps.y*100 - en_casa.yV_min
         # x = x + math.sin(target_phi * 3.141593 / 180) # simular mov del rover
         # y = y + math.cos(target_phi * 3.141593 / 180)
         dist_rO_sq = x**2 + y**2
         target_phi = (90 - math.degrees(math.atan2(y, x)) + 360) % 360 + 180 # sentido hacia el origen
         if target_phi > 360:
             target_phi = target_phi - 360
-        print ("ir al origen con dirección ",target_phi)
+        # print("xV_min=",round(en_casa.xV_min),"yV_min=",round(en_casa.yV_min))
+        print (" fix=", gps.fix," target_phi=", round(target_phi)," x=", round(x)," y=", round(y))
+        time.sleep(1)# delay solo para ver datos
         # print("phi =", target_phi, "    x =", x, "    y =", y)
     
     print ("llegó al origen")
+    time.sleep(1)
 
-    # print ("     llegó al origen   x2(0) =", x2[0], "y2(0) =", y2[0])
+    # print ("llegó al origen   x2(0) =", x2[0], "y2(0) =", y2[0])
 
 
     # ----------------- RECORRER 4 SEGMENTOS ---------------------------

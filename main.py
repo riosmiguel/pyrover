@@ -9,11 +9,11 @@ else:
     import rpm
     
 import en_campo
-import log
+#import log
 import time
 
 
-log.inicializar()
+#log.inicializar()
 traccion.inicializar()
 rpm.inicializar()
 en_campo.inicializar()
@@ -29,25 +29,25 @@ def tick():
     if start_time != 0:
         elapsed_secs = time.time() - start_time
 
-    log.print("secs", elapsed_secs)
+    #log.print("secs", elapsed_secs)
 
     if gps.fix <= 3:
-        log.print("estado","espera") 
+        #log.print("estado","espera") 
         traccion.set_pwm_suma_y_diff(0, 0)
 
     else:
         if start_time == 0: start_time = time.time()
 
         if(elapsed_secs < 1): # empieza moviendo en recta
-            log.print("estado","empezando") 
+            #log.print("estado","empezando") 
             traccion.set_pwm_suma_y_diff(50, 0)
 
         elif(en_campo.parar == 1): # terminar cuando termina el trabajo
-            log.print("estado","fin") 
+            #log.print("estado","fin") 
             traccion.set_pwm_suma_y_diff(0,0)
 
         else:
-            log.print("estado","trabaja")
+            #log.print("estado","trabaja")
 
             # cuando sigue una paralela p, target_phi es la pendiente de p corregida por distancia rover-p
             # cuando va hacia un punto, es la dirección hacia ese punto
@@ -69,13 +69,13 @@ def tick():
             d_pwm = d_phi / 1 # factor de conversion de grados a PWM (para correccion de la direccion)
             traccion.set_pwm_suma_y_diff(50, d_pwm)
 
-    log.print("d_pwm",d_pwm)
-    log.print("fix",gps.fix)
-    log.print("x",gps.x, 3)
-    log.print("y",gps.y, 3)
-    log.print("phi",gps.phi)
-    log.print("vel",gps.vel)
-    log.print("rpm",rpm.activation_count)
+    #log.print("d_pwm",d_pwm)
+    #log.print("fix",gps.fix)
+    #log.print("x",gps.x, 3)
+    #log.print("y",gps.y, 3)
+    #og.print("phi",gps.phi)
+    #log.print("vel",gps.vel)
+    #log.print("rpm",rpm.activation_count)
 
 import threading, traceback
 
@@ -85,12 +85,12 @@ while True:
     try:
         tick()
     except Exception:
-        log.print_msg(traceback.format_exc(-1))
+        print(traceback.format_exc(-1))
 
     duration = time.time() - tick_start_time
-    log.print("cpu %", duration * 100 / interval, 0)
+    #log.print("cpu %", duration * 100 / interval, 0)
     if(duration > interval):
-        log.print_msg("Tick no pudo mantener intervalo")
+        print ("Tick no pudo mantener intervalo")
         print ("duracion: ",duration,"    intervalo: ",interval)
     else:
         time.sleep(interval - time.time() % interval)
