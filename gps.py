@@ -1,5 +1,3 @@
-import RPi.GPIO as GPIO
-
 lecturas = 0	# contador usado para inicializacion
 fix = 0			# fix quality del gps: 0 = Bad, 1 = GPS, 2 = DGPS, 4 = RTK Fixed, 5 = RTK Float
 x = 0			# coordenadas **** EN METROS ******
@@ -18,11 +16,13 @@ def lecturaValida():
 		return False
 	
 def go_gps():
-	GPIO.setmode(GPIO.BOARD)
-	GPIO.setup(27,GPIO.OUT)
-
 	global lat, lon, alt, utc, vel, fix  # valores directos leidos del gps
+	import RPi.GPIO as GPIO	
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setup(27,GPIO.OUT)
 	
+	import time
+
 	# abrir puerto serial hacia el RTK
 	import serial
 	puerto_com = serial.Serial('/dev/serial0', 115200, 8, "N", 1, timeout=1)
@@ -47,12 +47,14 @@ def go_gps():
 			lon = dmmToFloat(mensaje[4],mensaje[5])
 			alt = strToFloat(mensaje[9])
 			utc = strToFloat(mensaje[1])
-			fix = strToInt(mensaje[6]) 	
+			fix = strToInt(mensaje[6])
+
+			GPIO.output(27,GPIO.HIGH)
 			if(fix >= 4):
 				procesar(lat, lon, alt)
-				GPIO.output(8,GPIO.HIGH)
 			else:
-				GPIO.output(8,GPIO.LOW)
+				if(time.time() % 2 == 1):
+					GPIO.output(27,GPIO.LOW)
 
 
 def inicializar():
