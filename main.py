@@ -1,5 +1,5 @@
 
-testing = False
+testing = True
 
 if testing:
     import traccion_test as traccion
@@ -9,11 +9,10 @@ else:
     import rpm
     
 import en_campo
-#import log
+import log
 import time
 
-
-#log.inicializar()
+log.inicializar()
 traccion.inicializar()
 rpm.inicializar()
 en_campo.inicializar()
