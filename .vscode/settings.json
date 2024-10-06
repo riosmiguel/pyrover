@@ -3,5 +3,6 @@
     "git.autofetch": true,
     "git.autoStash": true,
     "git.confirmSync": false,
-    "git.enableSmartCommit": true
+    "git.enableSmartCommit": true,
+    "git.postCommitCommand": "sync"
 }
