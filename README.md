@@ -35,7 +35,7 @@ Git
 ### Ejecución automática:
 
     sudo crontab -e
-    @reboot /usr/bin/python /home/pi/blink.py > /home/pi/blink.log 2>&1 &
+    @reboot /usr/bin/python /home/luis/Desktop/gps/pyrover/main.py > /home/luis/Desktop/gps/auto.log 2>&1 &
 
 
 ### Debian GNU/Linux 12 (bookworm)
