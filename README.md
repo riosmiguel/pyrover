@@ -1,13 +1,11 @@
-## PyRover
+    RPi PWM Outputs:  12, 13, 18, 19
+    Ardusimple Pins:  15, 14, 17, 24
 
-    python main.py
+- Encontrar proceso automático: `ps -fC python`
+- Chequear undervoltage: `dmesg`
+- Ver version: `cat /etc/os-release`
 
-**RPi PWM Outputs:** 12, 13, 18, 19  
-**Ardusimple Pins:** 15, 14, 17, 24
 
-## Para correr Str2str
-    cd /home/luis/RTKLIB-rtklib_2.4.3/app/consapp/str2str/gcc/
-    str2str -out serial://ttyACM0:115200:8:n:1:off -in ntrip://192.168.1.9:2101/TBO &
 
 # Instalar RPi 
 
@@ -33,7 +31,12 @@ Git
     git config --global user.email jumiguelrios@gmail.com
     git config --global user.name miguel2
 
-Para chequear version: `cat /etc/os-release`
+
+### Ejecución automática:
+
+    sudo crontab -e
+    @reboot /usr/bin/python /home/pi/blink.py > /home/pi/blink.log 2>&1 &
+
 
 ### Debian GNU/Linux 12 (bookworm)
 
@@ -74,15 +77,11 @@ Agrandar SWAP (no necesario)
     sudo dphys-swapfile swapon
     sudo reboot
 
-
-
 # Otros 
 
 ## Windows (testing)
     
     pip install RPi.GPIO
-
-Chequear undervoltage: `dmesg`
 
 ## Instalar str2str
 
@@ -100,6 +99,10 @@ Chequear undervoltage: `dmesg`
     dmesg | grep tty
     [  232.604357] cdc_acm 1-1.2:1.0: ttyACM0: USB ACM device
 
+### Para correr Str2str
+
+    cd /home/luis/RTKLIB-rtklib_2.4.3/app/consapp/str2str/gcc/
+    str2str -out serial://ttyACM0:115200:8:n:1:off -in ntrip://192.168.1.9:2101/TBO &
 
 ## Mapas servicio geografico UY
 
@@ -107,10 +110,6 @@ https://www.gub.uy/infraestructura-datos-espaciales/
 https://visualizador.ide.uy/ideuy/  
 Chaja: G13A2, G13A3, G13A5, G13A6  
 EPSG 5382
-
-## Mover archivos
-
-
 
 ## Pantalla adafruit
 
@@ -130,10 +129,9 @@ EPSG 5382
 
 ## gpsd 
 
-
     sudo apt install gpsd gpsd-clients python-gps -->> E: Package 'python-gps' has no installation candidate
 
-Monitorear el GPS
+## Monitorear el GPS
 
     sudo systemctl stop gpsd.socket
     sudo systemctl disable gpsd.socket
@@ -141,4 +139,3 @@ Monitorear el GPS
 
     gpsmon
     cgps
-
