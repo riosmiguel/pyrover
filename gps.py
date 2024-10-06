@@ -28,7 +28,7 @@ def go_gps():
 	import serial
 	puerto_com = serial.Serial('/dev/serial0', 115200, 8, "N", 1, timeout=1)
 
-	while True:
+	while True: 
 
 		while(not puerto_com.is_open):
 			fix = -1
