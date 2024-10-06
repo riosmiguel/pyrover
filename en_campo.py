@@ -60,7 +60,7 @@ def go_en_campo():
         if target_phi > 360:
             target_phi = target_phi - 360
         # print("xV_min=",round(en_casa.xV_min),"yV_min=",round(en_casa.yV_min))
-        print (" fix=", gps.fix," target_phi=", round(target_phi)," x=", round(x)," y=", round(y))
+        #print (" fix=", gps.fix," target_phi=", round(target_phi)," x=", round(x)," y=", round(y))
         time.sleep(1)# delay solo para ver datos
         # print("phi =", target_phi, "    x =", x, "    y =", y)
     
