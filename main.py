@@ -67,7 +67,7 @@ def tick():
             d_pwm = d_phi / 1 # factor de conversion de grados a PWM (para correccion de la direccion)
             traccion.set_pwm_suma_y_diff(50, d_pwm)
 
-    print (" fix=", gps.fix," phi=", round(en_campo.target_phi),",",str(round(gps.phi)," x=", round(gps.x)," y=", round(gps.y), " d_pwm= ",round(d_pwm))
+    print (" fix=", gps.fix," phi=", round(en_campo.target_phi), ",", round(gps.phi)," x=", round(gps.x)," y=", round(gps.y), " d_pwm= ",round(d_pwm))
     #log.print("fix",gps.fix)
     #log.print("x",gps.x, 3)
     #log.print("y",gps.y, 3)
