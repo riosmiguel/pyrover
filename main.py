@@ -1,13 +1,11 @@
-
-
-testing = True
+testing = False
 
 if testing:
     import traccion_test as traccion
-    import rpm_test as rpm
+    #import rpm_test as rpm
 else:    
     import traccion
-    import rpm
+    #import rpm
     
 import en_campo
 import log
@@ -15,7 +13,7 @@ import time
 
 log.inicializar()
 traccion.inicializar()
-rpm.inicializar()
+#rpm.inicializar()
 en_campo.inicializar()
 
 start_time = 0

@@ -1,7 +1,7 @@
 # RECORRE RECTAS PARALELAS AL PRIMER LADO ENTRE PUNTOS DE CORTE DE 
 # ESTAS PARALELAS CON LOS DEMÁS LADOS, HALLADOS EN en_casa.py
 
-testing = True
+testing = False
 
 if testing:
     import gps_test_xy as gps

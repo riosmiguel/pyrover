@@ -20,6 +20,7 @@ def go_gps():
 	import RPi.GPIO as GPIO	
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(27,GPIO.OUT)
+	GPIO.output(27,GPIO.LOW)
 	
 	import time
 
@@ -49,12 +50,14 @@ def go_gps():
 			utc = strToFloat(mensaje[1])
 			fix = strToInt(mensaje[6])
 
-			GPIO.output(27,GPIO.HIGH)
 			if(fix >= 4):
+				GPIO.output(27,GPIO.HIGH)
 				procesar(lat, lon, alt)
 			else:
-				if(time.time() % 2 == 1):
+				if(time.time() % 2 < 1.0):
 					GPIO.output(27,GPIO.LOW)
+				else:
+					GPIO.output(27,GPIO.HIGH)
 
 
 def inicializar():

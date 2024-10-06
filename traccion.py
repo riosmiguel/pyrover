@@ -7,9 +7,6 @@ def inicializar():
 	global motor_izq, motor_der
 	motor_izq = Motor(13, 12)
 	motor_der = Motor(19, 18)
-	
-	inicializar_teclado()
-
 
 def set_pwm_suma_y_diff(suma, diff):
 	global motor_izq, motor_der
@@ -58,21 +55,3 @@ class Motor:
 			return self.gpio_fw.value * 100.0
 		else:
 			return -self.gpio_bw.value * 100.0
-
-#---------------------------------------- Teclado: enter para parar todo -----------------------
-# interrumpe los dos motores para parar
-
-import sys, os, threading, time
-
-def inicializar_teclado():
-	threading.Thread(target=go_teclado, daemon=True).start()
-
-def go_teclado():
-	global motor_izq, motor_der
-
-	sys.stdin.read(1)
-	log.print_msg("Parando por teclado")
-	motor_izq.stop()
-	motor_der.stop()
-	time.sleep(0.1)
-	os._exit(0) # para la ejecucion del programa
