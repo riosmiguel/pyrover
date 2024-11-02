@@ -16,6 +16,8 @@ Habilitar puerto serial:
         KERNEL=="ttyACM[0-9]*",MODE="0666"
         KERNEL=="ttyS[0-9]*",MODE="0666"
 
+Permisos para GPIO
+    sudo usermod -aG gpio luis
 
 Instalar XRDP
 
@@ -23,7 +25,6 @@ Instalar XRDP
     sudo adduser luis
     sudo adduser luis sudo
     echo 'luis ALL=(ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/010_luis-nopasswd
-    sudo usermod -aG gpio luis
 
 Git  
 
