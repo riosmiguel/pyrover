@@ -5,7 +5,8 @@ import en_campo
 # en los 3 puntos a la izquierda, exportar como archivo kml a carpeta de descargas
 # abrir el archivo con notepad, buscar el string de coordenadas, copiar y pegar en polig abajo
 
-polig = (-55.98540727320524,-31.71119780451892,0 -55.98536131094141,-31.71115277071806,0 -55.98533729153682,-31.71108297998741,0 -55.98539130662363,-31.71114086210723,0 -55.98540727320524,-31.71119780451892,0)
+# proyecto: 09nov
+polig = (-55.98539925229269,-31.71125978899208,0 -55.98536324658264,-31.71122584835332,0 -55.98537464928334,-31.71121806716425,0 -55.98539536907332,-31.71123974994758,0 -55.98539925229269,-31.71125978899208,0)
 ancho = 90 # es el ancho entre paralelas = diámetro de la hélice en cm
 
 # --------------------------------------------------------
@@ -175,7 +176,7 @@ while (i > i_max): # hallar ecuaciones de aristas por vértices >= i_max
 
 
 # ------------- OUTPUT: tg de las paralelas a arista V0 V1, coordenadas de cortes -------------
-print ("tg de las paralelas= ", tg_p)
+print ("tg_p= ", round(tg_p, 3))
 print ("cortes del lado V1")
 print ("x1=",x1)
 print ("y1=",y1)
