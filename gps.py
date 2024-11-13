@@ -30,36 +30,37 @@ def go_gps():
 
 	while True: 
 
-		while(not puerto_com.is_open):
-			fix = -1
-			puerto_com.open()
 		try:
+			while(not puerto_com.is_open):
+				fix = -1
+				puerto_com.open()
+			
 			mensaje = puerto_com.readline().decode().split(',')
 			del mensaje[-1] # Borrar ultimo item del mensaje array porque es un CRC
+			#Si se quiere guardar todos los mensajes, usar este código:
+			# for c in mensaje: file.write(str(c)), file.write("\t")
+
+			if mensaje[0] == '$GNVTG':
+				#dir = strToFloat(mensaje[1]) - no usamos dir del gps 
+				vel = strToFloat(mensaje[7])
+
+			if mensaje[0] == '$GNGGA':
+				lat = dmmToFloat(mensaje[2],mensaje[3])
+				lon = dmmToFloat(mensaje[4],mensaje[5])
+				alt = strToFloat(mensaje[9])
+				utc = strToFloat(mensaje[1])
+				fix = strToInt(mensaje[6])
+
+				if(fix >= 4):
+					GPIO.output(27,GPIO.HIGH)
+					procesar(lat, lon, alt)
+				else:
+					if(time.time() % 2 < 1.0):
+						GPIO.output(27,GPIO.LOW)
+					else:
+						GPIO.output(27,GPIO.HIGH)
 		except:
 			print("mensaje del GPS con error")
-		#Si se quiere guardar todos los mensajes, usar este código:
-		# for c in mensaje: file.write(str(c)), file.write("\t")
-
-		if mensaje[0] == '$GNVTG':
-			#dir = strToFloat(mensaje[1]) - no usamos dir del gps 
-			vel = strToFloat(mensaje[7])
-
-		if mensaje[0] == '$GNGGA':
-			lat = dmmToFloat(mensaje[2],mensaje[3])
-			lon = dmmToFloat(mensaje[4],mensaje[5])
-			alt = strToFloat(mensaje[9])
-			utc = strToFloat(mensaje[1])
-			fix = strToInt(mensaje[6])
-
-			if(fix >= 4):
-				GPIO.output(27,GPIO.HIGH)
-				procesar(lat, lon, alt)
-			else:
-				if(time.time() % 2 < 1.0):
-					GPIO.output(27,GPIO.LOW)
-				else:
-					GPIO.output(27,GPIO.HIGH)
 
 
 def inicializar():
