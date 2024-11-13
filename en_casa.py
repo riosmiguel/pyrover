@@ -5,8 +5,8 @@ import en_campo
 # en los 3 puntos a la izquierda, exportar como archivo kml a carpeta de descargas
 # abrir el archivo con notepad, buscar el string de coordenadas, copiar y pegar en polig abajo
 
-# proyecto: 09nov
-polig = (-55.98539925229269,-31.71125978899208,0 -55.98536324658264,-31.71122584835332,0 -55.98537464928334,-31.71121806716425,0 -55.98539536907332,-31.71123974994758,0 -55.98539925229269,-31.71125978899208,0)
+# proyecto: 12nov
+polig = (-55.98548628132687,-31.7112829468007,0 -55.98541584513373,-31.71121638671095,0 -55.98544684864037,-31.71119493758941,0 -55.98547408226159,-31.71122378945978,0 -55.98548628132687,-31.7112829468007,0)
 ancho = 90 # es el ancho entre paralelas = diámetro de la hélice en cm
 
 # --------------------------------------------------------

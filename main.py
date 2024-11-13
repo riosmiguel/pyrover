@@ -22,7 +22,8 @@ en_campo.inicializar()
 start_time = 0
 
 def tick():
-    global start_time, d_phi
+    global start_time
+    d_phi = 0
     elapsed_secs = 0
     d_pwm = 0
  
@@ -38,9 +39,12 @@ def tick():
 
         if(elapsed_secs < 3): # empieza moviendo en recta 3s
             traccion.set_pwm_suma_y_diff(-50, 0)
+            print("arrancando")
+            print ("f",gps.fix,"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
         
         elif(en_campo.parar == 1): # terminar cuando termina el trabajo
             traccion.set_pwm_suma_y_diff(0,0)
+            print("parar")
 
         else: # trabaja
             #calcular PWM usando phi (dirección real del rover) y target_phi (dirección ideal)
@@ -55,7 +59,7 @@ def tick():
             d_pwm = d_phi *(abs(d_phi) < 50) + 50*(d_phi > 50) - 50*(d_phi < -50)
             traccion.set_pwm_suma_y_diff(-50, -d_pwm)
 
-    print ("f",gps.fix,"  e",en_campo.etapa,"  d_phi", round(d_phi),"  d_pwm=",round(d_pwm),"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
+            print ("f",gps.fix,"  e",en_campo.etapa,"  d_phi", round(d_phi),"  d_pwm=",round(d_pwm),"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
     
 import threading, traceback
 

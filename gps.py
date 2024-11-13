@@ -33,9 +33,11 @@ def go_gps():
 		while(not puerto_com.is_open):
 			fix = -1
 			puerto_com.open()
-	
-		mensaje = puerto_com.readline().decode(errors='ignore').split(',')
-		del mensaje[-1] # Borrar ultimo item del mensaje array porque es un CRC
+		try:
+			mensaje = puerto_com.readline().decode().split(',')
+			del mensaje[-1] # Borrar ultimo item del mensaje array porque es un CRC
+		except:
+			print("mensaje del GPS con error")
 		#Si se quiere guardar todos los mensajes, usar este código:
 		# for c in mensaje: file.write(str(c)), file.write("\t")
 
