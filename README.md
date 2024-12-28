@@ -1,10 +1,9 @@
     RPi PWM Outputs:  12, 13, 18, 19
     Ardusimple Pins:  15, 14, 17, 24
 
-- Encontrar proceso automático: `ps -fC python`
 - Chequear undervoltage: `dmesg`
-- Ver version: `cat /etc/os-release`
-
+- Mostrar version de Raspbian: `cat /etc/os-release`
+- Encontrar proceso en background: `ps -fC python`
 
 
 # Instalar RPi 
@@ -16,10 +15,6 @@ Habilitar puerto serial:
         KERNEL=="ttyACM[0-9]*",MODE="0666"
         KERNEL=="ttyS[0-9]*",MODE="0666"
 
-Permisos para GPIO
-
-    sudo usermod -aG gpio luis
-
 Instalar XRDP
 
     sudo apt install xrdp
@@ -27,12 +22,24 @@ Instalar XRDP
     sudo adduser luis sudo
     echo 'luis ALL=(ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/010_luis-nopasswd
 
+Permisos para GPIO
+
+    sudo usermod -aG gpio, dialout, root luis
+    sudo usermod -aG gpio, dialout, root pi
+
 Git  
 
     git clone https://github.com/riosmiguel/pyrover.git
-    git config --global user.email jumiguelrios@gmail.com
-    git config --global user.name miguel2
+    git config --global user.email mariadutilh@hotmail.es
+    git config --global user.name luis
 
+Configurar segundo wlan
+
+    sudo nmcli con add con-name RPi ifname wlan1 type wifi ssid "RPi"
+    sudo nmcli con modify RPi wifi-sec.key-mgmt wpa-psk
+    sudo nmcli con modify RPi wifi-sec.psk "pitanguera3"
+    sudo nmcli con modify RPi 802-11-wireless.mode ap 80
+    nmtui
 
 ### Ejecución automática:
 
@@ -47,7 +54,7 @@ Python:
     sudo apt install git python3-pip
     pip3 install --break-system-packages navpy
 
-### Debian GNU/Linux 11 (bullseye)
+### Debian GNU/Linux 11 (old bullseye)
 
 Python:
 
