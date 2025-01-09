@@ -26,7 +26,8 @@ def go_gps():
 
 	# abrir puerto serial hacia el RTK
 	import serial
-	puerto_com = serial.Serial('/dev/serial0', 115200, 8, "N", 1, timeout=1)
+	#puerto_com = serial.Serial('/dev/serial0', 115200, 8, "N", 1, timeout=1)
+	puerto_com = serial.Serial('/dev/ttyAMA0', 115200, 8, "N", 1, timeout=1)
 
 	while True: 
 
@@ -35,7 +36,8 @@ def go_gps():
 				fix = -1
 				puerto_com.open()
 			
-			mensaje = puerto_com.readline().decode().split(',')
+			str = puerto_com.readline().decode()
+			mensaje = str.split(',')
 			del mensaje[-1] # Borrar ultimo item del mensaje array porque es un CRC
 			#Si se quiere guardar todos los mensajes, usar este código:
 			# for c in mensaje: file.write(str(c)), file.write("\t")

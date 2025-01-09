@@ -11,9 +11,11 @@ import en_campo
 import log
 import time
 traccion.inicializar()
-# traccion.set_pwm_suma_y_diff(-50, 0) # prueba manual de motores
-# time.sleep(5)
-# traccion.set_pwm_suma_y_diff(0, 0)
+
+#print("prueba motores...")
+traccion.set_pwm_suma_y_diff(10, 0) 
+time.sleep(1)
+exit(0)
 
 log.inicializar()
 #rpm.inicializar()
@@ -26,7 +28,7 @@ def tick():
     d_phi = 0
     elapsed_secs = 0
     d_pwm = 0
- 
+
     gps = en_campo.gps
     if start_time != 0:
         elapsed_secs = time.time() - start_time
@@ -40,7 +42,7 @@ def tick():
         if(elapsed_secs < 3): # empieza moviendo en recta 3s
             traccion.set_pwm_suma_y_diff(-50, 0)
             print("arrancando")
-            print ("f",gps.fix,"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
+            #print ("f",gps.fix,"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
         
         elif(en_campo.parar == 1): # terminar cuando termina el trabajo
             traccion.set_pwm_suma_y_diff(0,0)

@@ -42,7 +42,7 @@ def go_en_campo():
     phi_par = 0
 
     while(gps.fix < 4):
-        print( "\nfix =", gps.fix)
+        #print( "\nfix =", gps.fix)
         time.sleep(0.1)
 
     # --- IR HACIA EL ORIGEN -----------------------
