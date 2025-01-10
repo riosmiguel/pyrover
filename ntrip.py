@@ -1,17 +1,17 @@
 import socket
 import base64
-import sys
+import time
 import serial
 
 #ser = serial.Serial(tty, 19200, timeout=2, xonxoff=False, rtscts=False, dsrdtr=False)
-ser = serial.Serial('/dev/ttyAMA0', 115200, 8, "N", 1, timeout=1)
-ser.flushInput()
-ser.flushOutput()
+#ser = serial.Serial('/dev/ttyAMA0', 115200, 8, "N", 1, timeout=1)
+#ser.flushInput()
+#ser.flushOutput()
 
 server = "rtk.igm.gub.uy"
 port = "2101"
 mountpoint = "UYTA"
-username = "rtk2025"
+username = "Rtk2025"
 password = "Rtk_2025"
 
 def getHTTPBasicAuthString(username,password):
@@ -39,7 +39,7 @@ while True:
     if resp.startswith(b"STREAMTABLE"):
         print("Invalid or No Mountpoint")
         exit()
-    elif not resp.startswith(b"HTTP/1.1 200 OK"):
+    elif resp.startswith(b"HTTP/1.1 200 OK"):
         print("All good")
 
     # There are some length bytes at the head here but it actually
@@ -50,15 +50,12 @@ while True:
     #except ValueError:
     #    continue
     
-    data = s.recv(1024)
-    print(data)
-    
-    if not data:
-        print("no data")
-    
-    ret = ser.write(data)
+    #data = s.recv(1024)
+    print(resp)
+       
+    #ret = ser.write(data)
     #print(ret)
     #print >>sys.stderr, [ord(d) for d in data]
     #sys.stdout.flush()
 
-    sys.time.sleep(2)
+    time.sleep(2)
