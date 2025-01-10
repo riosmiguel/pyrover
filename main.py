@@ -13,7 +13,7 @@ import time
 traccion.inicializar()
 
 #print("prueba motores...")
-traccion.set_pwm_suma_y_diff(10, 0) 
+traccion.set_pwm_suma_y_diff(50, 0) 
 time.sleep(1)
 exit(0)
 
