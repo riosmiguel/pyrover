@@ -1,6 +1,3 @@
-import ntrip
-exit(0)
-
 testing = False
 
 if testing:

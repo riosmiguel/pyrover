@@ -45,7 +45,7 @@ def go_ntrip():
             s.connect((server,int(port)))
 
             while True:
-                print(cnt)
+                #print(cnt)
 
                 s.sendto(header.encode('utf-8'),(server,int(port)))
                 resp = s.recv(1024)
