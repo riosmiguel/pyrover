@@ -4,9 +4,9 @@ import time
 import serial
 
 #ser = serial.Serial(tty, 19200, timeout=2, xonxoff=False, rtscts=False, dsrdtr=False)
-#ser = serial.Serial('/dev/ttyAMA0', 115200, 8, "N", 1, timeout=1)
-#ser.flushInput()
-#ser.flushOutput()
+ser = serial.Serial('/dev/ttyAMA0', 115200, 8, "N", 1, timeout=1)
+ser.flushInput()
+ser.flushOutput()
 
 server = "rtk.igm.gub.uy"
 port = "2101"
@@ -53,8 +53,8 @@ while True:
     #data = s.recv(1024)
     print(resp)
        
-    #ret = ser.write(data)
-    #print(ret)
+    ret = ser.write(resp)
+    print(ret)
     #print >>sys.stderr, [ord(d) for d in data]
     #sys.stdout.flush()
 

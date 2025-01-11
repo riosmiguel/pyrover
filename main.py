@@ -1,5 +1,5 @@
-import ntrip
-exit(0)
+#import ntrip
+#exit(0)
 
 
 testing = False
@@ -17,9 +17,9 @@ import time
 traccion.inicializar()
 
 #print("prueba motores...")
-traccion.set_pwm_suma_y_diff(50, 0) 
-time.sleep(1)
-exit(0)
+#traccion.set_pwm_suma_y_diff(50, 0) 
+#time.sleep(1)
+#exit(0)
 
 log.inicializar()
 #rpm.inicializar()
