@@ -36,14 +36,14 @@ def go_en_campo():
     X = en_casa.X
     Y = en_casa.Y
     xo = en_casa.xV_min + 0 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
-    yo = en_casa.yV_min + 0
+    yo = en_casa.yV_min + 150
     xx = 0
     yy = 0
     parar = 0
     etapa = 0
     phi_par = 0
 
-    while(gps.fix < 4):
+    while(gps.fix < 3):
         #print( "\nfix =", gps.fix)
         time.sleep(0.1)
 

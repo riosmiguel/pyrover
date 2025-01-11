@@ -43,6 +43,7 @@ def go_ntrip():
 
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((server,int(port)))
+            print("Conectado a NTRIP")
 
             while True:
                 #print(cnt)

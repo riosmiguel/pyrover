@@ -16,8 +16,8 @@ def set_pwm_suma_y_diff(suma, diff):
 	if(suma + abs(diff) > 100) : suma = suma - abs(diff)
 	if(suma - abs(diff) < 100) : suma = suma + abs(diff)
 
-	motor_izq.set_pwm(suma - diff)
-	motor_der.set_pwm(suma + diff)
+	motor_izq.set_pwm((suma - diff))
+	motor_der.set_pwm((suma + diff)*0.9)
 
 
 #---------------------------------------- Motores ----------------------------------
