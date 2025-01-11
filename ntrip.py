@@ -31,20 +31,21 @@ header =\
 "Connection: close\r\n\r\n"
 
 while True:
+    cnt = 1
     try:
+
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((server,int(port)))
-        cnt = 1
 
         while True:
+            print(cnt)
+
             s.sendto(header.encode('utf-8'),(server,int(port)))
             resp = s.recv(1024)
 
             if resp.startswith(b"STREAMTABLE"):
                 print("Invalid or No Mountpoint")
                 exit()
-
-            print(cnt,ret.bit_length)
             
             ret = ser.write(resp)
             cnt = cnt + 1
