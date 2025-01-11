@@ -35,6 +35,8 @@ def go_en_campo():
     y2 = en_casa.y2
     X = en_casa.X
     Y = en_casa.Y
+    xo = en_casa.xV_min + 0 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
+    yo = en_casa.yV_min + 0
     xx = 0
     yy = 0
     parar = 0
@@ -53,8 +55,8 @@ def go_en_campo():
 
     while dist_rO_sq > 1600:
         time.sleep(0.1) # sleep para que no quede usando 100% cpu
-        xx = gps.x*100 - en_casa.xV_min 
-        yy = gps.y*100 - en_casa.yV_min
+        xx = gps.x*100 - xo
+        yy = gps.y*100 - yo
         
         dist_rO_sq = xx**2 + yy**2 # cuadrado distancia al origen
         target_phi = (90 - math.degrees(math.atan2(yy, xx)) + 360) % 360 + 180 # sentido hacia el origen
@@ -74,8 +76,8 @@ def go_en_campo():
     #for i in range (0,15): # doblar
         # target_phi = abs(gps.phi - phi_par)*((der == 0) - (der == 1))
         
-        # xx = gps.x*100 - en_casa.xV_min # para print del main, ver la trayectoria 
-        # yy = gps.y*100 - en_casa.yV_min
+        # xx = gps.x*100 - xo
+        # yy = gps.y*100 - yo
 
         # time.sleep(0.1)
 
@@ -91,8 +93,8 @@ def go_en_campo():
             time.sleep(0.1) # calculo de target_phi cada 0.1s para que no use mucha cpu
             etapa = 2
            
-            xx = gps.x*100 - en_casa.xV_min 
-            yy = gps.y*100 - en_casa.yV_min
+            xx = gps.x*100 - xo
+            yy = gps.y*100 - yo
 
             dist_rp = (yy - xx*tg_p - Y0_p)/aux # distancia rover a paralela i
             target_phi = phi_par + dist_rp * 0.5 # 0.5= factor de corrección cm a grados
@@ -107,16 +109,16 @@ def go_en_campo():
         #target_phi = target_phi + 360 * (target_phi < 0)
         
         #for j in range (0,6): # dividir sleep para leer coordenadas
-            #xx = gps.x*100 - en_casa.xV_min 
-            #yy = gps.y*100 - en_casa.yV_min   
+            #xx = gps.x*100 - xo
+            #yy = gps.y*100 - yo  
             #time.sleep(0.1)
         
         #target_phi = phi_par - 180
         #target_phi = target_phi + 360 * (target_phi < 0)
         
         #for j in range (0,6):
-            #xx = gps.x*100 - en_casa.xV_min 
-            #yy = gps.y*100 - en_casa.yV_min   
+            #xx = gps.x*100 - xo 
+            #yy = gps.y*100 - yo  
             #time.sleep(0.1)
 
         # -------------SEGUIR PARALELA DESDE (x1(i+1),y1(i+1)) A (x2(i+1),y2(i+1) ESTE A OESTE-----------------
@@ -130,8 +132,8 @@ def go_en_campo():
         while  (xx - x2[i+1])**2 + (yy - y2[i+1])**2 > 1600: # cuadrado distancia de r al corte
             time.sleep(0.1) # para que no quede usando 100% cpu
             
-            xx = gps.x*100 - en_casa.xV_min 
-            yy = gps.y*100 - en_casa.yV_min
+            xx = gps.x*100 - xo
+            yy = gps.y*100 - yo
 
             dist_rp = (yy - xx*tg_p - Y0_p)/aux # distancia rover a paralela i+1
             target_phi = phi_par - dist_rp * 0.5
