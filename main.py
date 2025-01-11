@@ -1,6 +1,5 @@
-#import ntrip
-#exit(0)
-
+import ntrip
+exit(0)
 
 testing = False
 

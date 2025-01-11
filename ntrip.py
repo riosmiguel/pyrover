@@ -1,9 +1,10 @@
 import socket
 import base64
 import time
-import serial
+import serial, traceback
 
-#ser = serial.Serial(tty, 19200, timeout=2, xonxoff=False, rtscts=False, dsrdtr=False)
+# basado en https://github.com/MarekGalinski/pyNtrip-simple-client/blob/master/pyNtrip-client.py
+
 ser = serial.Serial('/dev/ttyAMA0', 115200, 8, "N", 1, timeout=1)
 ser.flushInput()
 ser.flushOutput()
@@ -29,33 +30,27 @@ header =\
 "Authorization: Basic {}\r\n".format(pwd) +\
 "Connection: close\r\n\r\n"
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((server,int(port)))
-
 while True:
-    s.sendto(header.encode('utf-8'),(server,int(port)))
-    resp = s.recv(1024)
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((server,int(port)))
+        cnt = 1
 
-    if resp.startswith(b"STREAMTABLE"):
-        print("Invalid or No Mountpoint")
-        exit()
-    elif resp.startswith(b"HTTP/1.1 200 OK"):
-        print("All good")
+        while True:
+            s.sendto(header.encode('utf-8'),(server,int(port)))
+            resp = s.recv(1024)
 
-    # There are some length bytes at the head here but it actually
-    # seems more robust to simply let the higher level RTCMv3 parser do everything
-    #length = s.recv(4)
-    #try:
-    #    length = int(length.strip(), 16)
-    #except ValueError:
-    #    continue
-    
-    #data = s.recv(1024)
-    print(resp)
-       
-    ret = ser.write(resp)
-    print(ret)
-    #print >>sys.stderr, [ord(d) for d in data]
-    #sys.stdout.flush()
+            if resp.startswith(b"STREAMTABLE"):
+                print("Invalid or No Mountpoint")
+                exit()
 
-    time.sleep(2)
+            print(cnt,ret.bit_length)
+            
+            ret = ser.write(resp)
+            cnt = cnt + 1
+            time.sleep(2)
+
+    except Exception:
+        print(traceback.format_exc(-1))
+        time.sleep(2)
+        
