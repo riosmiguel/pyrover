@@ -29,6 +29,9 @@ def go_gps():
 	#puerto_com = serial.Serial('/dev/serial0', 115200, 8, "N", 1, timeout=1)
 	puerto_com = serial.Serial('/dev/ttyAMA0', 115200, 8, "N", 1, timeout=1)
 
+	import ntrip
+	ntrip.inicializar(puerto_com)
+
 	while True: 
 
 		try:
