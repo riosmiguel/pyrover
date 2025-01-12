@@ -14,10 +14,10 @@ traccion.inicializar()
 
 if True:
     print("prueba motores...")
-    traccion.set_pwm_suma_y_diff(25, 0)  
-    time.sleep(60)
-    traccion.set_pwm_suma_y_diff(0, 0) 
-    time.sleep(1)
+    #traccion.set_pwm_suma_y_diff(25, 0)  
+    #time.sleep(300)
+    traccion.set_pwm_suma_y_diff(30, 0) 
+    time.sleep(100)
     exit(0)
 
 
@@ -49,6 +49,7 @@ def tick():
         if(elapsed_secs < 3): # empieza moviendo en recta 3s
             #traccion.set_pwm_suma_y_diff(20, 0)
             pwm = 10 * elapsed_secs + 20
+            #pwm = 0
             traccion.set_pwm_suma_y_diff(pwm, 0)
             print ("f",gps.fix,"  e", "|", "  gps phi", round(gps.phi),"  pwm ",pwm,"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
 
