@@ -5,8 +5,8 @@ import log
 
 def inicializar():
 	global motor_izq, motor_der
-	motor_izq = Motor(13, 12)
-	motor_der = Motor(19, 18)
+	motor_izq = Motor(12, 13)
+	motor_der = Motor(18, 19)
 
 def set_pwm_suma_y_diff(suma, diff):
 	global motor_izq, motor_der
