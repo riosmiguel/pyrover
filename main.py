@@ -12,12 +12,12 @@ import log
 import time
 traccion.inicializar()
 
-#print("prueba motores...")
-#traccion.set_pwm_suma_y_diff(50, 0)  
-#time.sleep(2)
-#traccion.set_pwm_suma_y_diff(0, 0) 
-#time.sleep(1)
-#exit(0)
+print("prueba motores...")
+traccion.set_pwm_suma_y_diff(50, 0)  
+time.sleep(20)
+traccion.set_pwm_suma_y_diff(0, 0) 
+time.sleep(1)
+exit(0)
 
 log.inicializar()
 #rpm.inicializar()
@@ -45,8 +45,8 @@ def tick():
 
         if(elapsed_secs < 3): # empieza moviendo en recta 3s
             #traccion.set_pwm_suma_y_diff(20, 0)
-            pwm = 16 * elapsed_secs
-            traccion.set_pwm_suma_y_diff(pwm)
+            pwm = 10 * elapsed_secs + 20
+            traccion.set_pwm_suma_y_diff(pwm, 0)
             print ("f",gps.fix,"  e", "|", "  gps phi", round(gps.phi),"  pwm ",pwm,"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
 
         elif(en_campo.parar == 1): # terminar cuando termina el trabajo
@@ -63,13 +63,12 @@ def tick():
                 else:
                     e_phi = 360 - abs(e_phi)
             
-            d_pwm = e_phi *(abs(e_phi) < 50) + 50*(e_phi > 50) - 50*(e_phi < -50)
+            d_pwm = e_phi * (abs(e_phi) < 50) + 50*(e_phi > 50) - 50*(e_phi < -50)
             traccion.set_pwm_suma_y_diff(50, d_pwm)
             #traccion.set_pwm_suma_y_diff(0,0)
 
             print ("f",gps.fix,"  e",en_campo.etapa,"  e_phi", round(e_phi),"  d_pwm=",round(d_pwm),"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
-            exit(0)
-    
+
 import threading, traceback
 
 while True:
@@ -80,10 +79,15 @@ while True:
     except Exception:
         print(traceback.format_exc(-1))
 
-    duration = time.time() - tick_start_time
-    #log.print("cpu %", duration * 100 / interval, 0)
-    if(duration > interval):
-        print ("Tick no pudo mantener intervalo")
-        print ("duracion: ",duration,"    intervalo: ",interval)
-    else:
-        time.sleep(interval - time.time() % interval)
+    try:
+        duration = time.time() - tick_start_time
+        #log.print("cpu %", duration * 100 / interval, 0)
+        if(duration > interval):
+            print ("Tick no pudo mantener intervalo")
+            print ("duracion: ",duration,"    intervalo: ",interval)
+        else:
+            time.sleep(interval - time.time() % interval)
+    except Exception:
+        traccion.set_pwm_suma_y_diff(0,0)
+        print("parando")
+
