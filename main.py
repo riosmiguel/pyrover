@@ -12,12 +12,14 @@ import log
 import time
 traccion.inicializar()
 
-print("prueba motores...")
-traccion.set_pwm_suma_y_diff(50, 0)  
-time.sleep(20)
-traccion.set_pwm_suma_y_diff(0, 0) 
-time.sleep(1)
-exit(0)
+if True:
+    print("prueba motores...")
+    traccion.set_pwm_suma_y_diff(25, 0)  
+    time.sleep(60)
+    traccion.set_pwm_suma_y_diff(0, 0) 
+    time.sleep(1)
+    exit(0)
+
 
 log.inicializar()
 #rpm.inicializar()
@@ -26,6 +28,7 @@ en_campo.inicializar()
 start_time = 0
 
 traccion.set_pwm_suma_y_diff(0, 0) 
+#exit(0)
 
 def tick():
     global start_time
@@ -64,7 +67,7 @@ def tick():
                     e_phi = 360 - abs(e_phi)
             
             d_pwm = e_phi * (abs(e_phi) < 50) + 50*(e_phi > 50) - 50*(e_phi < -50)
-            traccion.set_pwm_suma_y_diff(50, d_pwm)
+            traccion.set_pwm_suma_y_diff(50, 0 - d_pwm)
             #traccion.set_pwm_suma_y_diff(0,0)
 
             print ("f",gps.fix,"  e",en_campo.etapa,"  e_phi", round(e_phi),"  d_pwm=",round(d_pwm),"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
