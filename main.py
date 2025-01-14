@@ -29,7 +29,7 @@ def tick():
     gps = en_campo.gps
     
     if 1==1:
-        traccion.set_pwm_and_ratio(30, 0)
+        traccion.set_pwm_and_ratio(20, 0)
 
     elif gps.fix < 3: # espera
         traccion.set_pwm_and_ratio(0, 0)
