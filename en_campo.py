@@ -95,8 +95,8 @@ def go_en_campo():
         target_phi = phi_par - 90
         target_phi = target_phi + 360 * (target_phi < 0)
         
-        for j in range (0,20): # dividir sleep para leer coordenadas
-            time.sleep(0.1) # dobla durante 20 * 0.1s
+        for j in range (0,10): # dividir sleep para leer coordenadas
+            time.sleep(0.1) # dobla durante 10 * 0.1s
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo  
 
@@ -123,8 +123,8 @@ def go_en_campo():
         target_phi = phi_par + 90
         target_phi = target_phi - 360 * (target_phi > 360)
 
-        for j in range (0,20): # dividir sleep para leer coordenadas
-            time.sleep(0.1) # dobla durante 30 * 0.1s
+        for j in range (0,10): # dividir sleep para leer coordenadas
+            time.sleep(0.1) # dobla durante 10 * 0.1s
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo  
         
