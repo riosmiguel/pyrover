@@ -42,6 +42,7 @@ def go_en_campo():
     parar = 0
     etapa = 0
     phi_par = 0
+    Y0_p = 0
 
     while(gps.fix < 4):
         #print( "\nfix =", gps.fix)
@@ -103,13 +104,13 @@ def go_en_campo():
         if i+1 >= num_par : # terminó el trabajo por el lado 1
                 parar = 1
     
-        # ------------- DOBLAR A LA IZQUIERDA 1s ------------------------
+        # ------------- DOBLAR A LA IZQUIERDA 4s ------------------------
         etapa = 3
         target_phi = phi_par - 90
         target_phi = target_phi + 360 * (target_phi < 0)
         
-        for j in range (0,10): # dividir sleep para leer coordenadas
-            time.sleep(0.1) # dobla durante 10 * 0.1 = 1s
+        for j in range (0,40): # dividir sleep para leer coordenadas
+            time.sleep(0.1) # dobla durante 30 * 0.1s
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo  
 
@@ -131,12 +132,12 @@ def go_en_campo():
             target_phi = phi_par - dist_rp * 0.5
             # print ("phi_par=",round(phi_par)," dist_rp=",round(dist_rp)," target_phi=",round(target_phi)," gps.phi=",round(gps.phi))
         
-        # ------------- DOBLAR A LA DERECHA 1s ------------------------
+        # ------------- DOBLAR A LA DERECHA 3s ------------------------
         etapa = 5
         target_phi = phi_par + 90
         target_phi = target_phi - 360 * (target_phi > 360)
 
-        for j in range (0,10): # dividir sleep para leer coordenadas
+        for j in range (0,30): # dividir sleep para leer coordenadas
             time.sleep(0.1) # dobla durante 10 * 0.1 = 1s
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo  

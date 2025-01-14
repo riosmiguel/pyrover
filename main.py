@@ -70,7 +70,7 @@ def tick():
             traccion.set_pwm_suma_y_diff(50, 0 - d_pwm)
             #traccion.set_pwm_suma_y_diff(0,0)
 
-            print ("f",gps.fix,"  e",en_campo.etapa,"  e_phi", round(e_phi),"  d_pwm=",round(d_pwm),"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
+            print ("f",gps.fix,"  e",en_campo.etapa,"  Y0_p",en_campo.Y0_p,"  target phi", en_campo.target_phi,"  e_phi", round(e_phi),"  d_pwm=",round(d_pwm),"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
 
 import threading, traceback
 
