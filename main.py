@@ -12,16 +12,13 @@ import log
 import time
 traccion.inicializar()
 
-traccion.set_pwm_and_ratio(0, 0) 
-#exit(0)
-
 log.inicializar()
 en_campo.inicializar()
 
 
 def t(s):
     # agrega tabs para imprimir
-    return "\t"+s+"\t"
+    return "\t"+s+"="
 
 start_time = 0
 def tick():
@@ -64,7 +61,7 @@ def tick():
             d_pwm = e_phi / 90
             traccion.set_pwm_and_ratio(50, 0 - d_pwm)
 
-    print (gps.fix,t("g_phi"),gps.phi, t("e"),en_campo.etapa, t("Y0_p"),en_campo.Y0_p, t("t_phi"),en_campo.target_phi, t("e_phi"),round(e_phi), t("d_pwm"),round(d_pwm), t("x"),round(en_campo.xx), t("y"),round(en_campo.yy))
+    print (gps.fix,t("g_phi"),round(gps.phi), t("e"),en_campo.etapa, t("Y0_p"),en_campo.Y0_p, t("t_phi"),round(en_campo.target_phi), t("e_phi"),round(e_phi), t("d_pwm"),round(d_pwm), t("x"),round(en_campo.xx), t("y"),round(en_campo.yy))
 
 import threading, traceback
 
@@ -73,8 +70,7 @@ while True:
     tick_start_time = time.time()
     try:
         tick()
-    except Exception:
-        print(traceback.format_exc(-1))
+    except Exception:        print(traceback.format_exc(-1))
 
     try:
         duration = time.time() - tick_start_time

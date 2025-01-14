@@ -35,8 +35,8 @@ def go_en_campo():
     y2 = en_casa.y2
     X = en_casa.X
     Y = en_casa.Y
-    xo = en_casa.xV_min + 0 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
-    yo = en_casa.yV_min + 0
+    xo = en_casa.xV_min + 50 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
+    yo = en_casa.yV_min + 175
     xx = 0
     yy = 0
     parar = 0

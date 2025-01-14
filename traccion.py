@@ -13,7 +13,7 @@ def set_pwm_and_ratio(pwm, ratio):
 	global motor_izq, motor_der
 
 	if ratio > 1: ratio = 1
-	if ratio > -1: ratio = -1
+	if ratio < -1: ratio = -1
 
 	diff = pwm * ratio
 
