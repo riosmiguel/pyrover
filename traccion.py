@@ -8,16 +8,28 @@ def inicializar():
 	motor_izq = Motor(12, 13)
 	motor_der = Motor(18, 19)
 
-def set_pwm_suma_y_diff(suma, diff):
+
+def set_pwm_and_ratio(pwm, ratio):
 	global motor_izq, motor_der
 
-	diff = diff / 2
+	if ratio > 1: ratio = 1
+	if ratio > -1: ratio = -1
 
-	if(suma + abs(diff) > 100) : suma = suma - abs(diff)
-	if(suma - abs(diff) < 100) : suma = suma + abs(diff)
+	diff = pwm * ratio
 
-	motor_izq.set_pwm((suma - diff))
-	motor_der.set_pwm((suma + diff))
+	motor_izq.set_pwm(pwm - diff)
+	motor_der.set_pwm(pwm + diff)
+
+#def set_pwm_suma_y_diff(suma, diff):
+#	global motor_izq, motor_der
+
+#	diff = diff / 2
+
+#	if(suma + abs(diff) > 100) : suma = suma - abs(diff)
+#	if(suma - abs(diff) < 100) : suma = suma + abs(diff)
+
+#	motor_izq.set_pwm((suma - diff))
+#	motor_der.set_pwm((suma + diff))
 
 
 #---------------------------------------- Motores ----------------------------------

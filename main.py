@@ -12,53 +12,43 @@ import log
 import time
 traccion.inicializar()
 
-if True:
-    print("prueba motores...")
-    #traccion.set_pwm_suma_y_diff(25, 0)  
-    #time.sleep(300)
-    traccion.set_pwm_suma_y_diff(30, 0) 
-    time.sleep(100)
-    exit(0)
-
+traccion.set_pwm_and_ratio(0, 0) 
+#exit(0)
 
 log.inicializar()
-#rpm.inicializar()
 en_campo.inicializar()
 
-start_time = 0
-
-traccion.set_pwm_suma_y_diff(0, 0) 
-#exit(0)
 
 def t(s):
     # agrega tabs para imprimir
     return "\t"+s+"\t"
 
+start_time = 0
 def tick():
     global start_time
     e_phi = 0
-    elapsed_secs = 0
     d_pwm = 0
 
     gps = en_campo.gps
-    if start_time != 0:
-        elapsed_secs = time.time() - start_time
     
-    if gps.fix < 3: # espera
-        traccion.set_pwm_suma_y_diff(0, 0)
+    if 1==1:
+        traccion.set_pwm_and_ratio(30, 0)
+
+    elif gps.fix < 3: # espera
+        traccion.set_pwm_and_ratio(0, 0)
 
     else:
-        if start_time == 0: start_time = time.time()
+        if start_time == 0:
+            start_time = time.time()
+        
+        elapsed_secs = time.time() - start_time
 
         if(elapsed_secs < 3): # empieza moviendo en recta 3s
-            #traccion.set_pwm_suma_y_diff(20, 0)
             pwm = 10 * elapsed_secs + 20
-            #pwm = 0
-            traccion.set_pwm_suma_y_diff(pwm, 0)
-            print ("f",gps.fix,"  e", "|", "  gps phi", round(gps.phi),"  pwm ",pwm,"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
+            traccion.set_pwm_and_ratio(pwm, 0)
 
         elif(en_campo.parar == 1): # terminar cuando termina el trabajo
-            traccion.set_pwm_suma_y_diff(0,0)
+            traccion.set_pwm_and_ratio(0,0)
             print("parar")
 
         else: # trabaja
@@ -71,9 +61,8 @@ def tick():
                 else:
                     e_phi = 360 - abs(e_phi)
             
-            d_pwm = e_phi * (abs(e_phi) < 50) + 50*(e_phi > 50) - 50*(e_phi < -50)
-            traccion.set_pwm_suma_y_diff(50, 0 - d_pwm)
-            #traccion.set_pwm_suma_y_diff(0,0)
+            d_pwm = e_phi / 90
+            traccion.set_pwm_and_ratio(50, 0 - d_pwm)
 
     print (gps.fix,t("g_phi"),gps.phi, t("e"),en_campo.etapa, t("Y0_p"),en_campo.Y0_p, t("t_phi"),en_campo.target_phi, t("e_phi"),round(e_phi), t("d_pwm"),round(d_pwm), t("x"),round(en_campo.xx), t("y"),round(en_campo.yy))
 
@@ -96,6 +85,6 @@ while True:
         else:
             time.sleep(interval - time.time() % interval)
     except Exception:
-        traccion.set_pwm_suma_y_diff(0,0)
+        traccion.set_pwm_and_ratio(0,0)
         print("parando")
 
