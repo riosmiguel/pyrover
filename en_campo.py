@@ -36,14 +36,15 @@ def go_en_campo():
     X = en_casa.X
     Y = en_casa.Y
     xo = en_casa.xV_min + 0 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
-    yo = en_casa.yV_min + 150
+    yo = en_casa.yV_min + 0
     xx = 0
     yy = 0
     parar = 0
     etapa = 0
     phi_par = 0
+    Y0_p = 0
 
-    while(gps.fix < 3):
+    while(gps.fix < 4):
         #print( "\nfix =", gps.fix)
         time.sleep(0.1)
 
@@ -103,23 +104,15 @@ def go_en_campo():
         if i+1 >= num_par : # terminó el trabajo por el lado 1
                 parar = 1
     
-        # ------------- DOBLAR 90 + 90 GRADOS A LA IZQUIERDA ------------------------
-        #etapa = 3
-        #target_phi = phi_par - 90
-        #target_phi = target_phi + 360 * (target_phi < 0)
+        # ------------- DOBLAR A LA IZQUIERDA 4s ------------------------
+        etapa = 3
+        target_phi = phi_par - 90
+        target_phi = target_phi + 360 * (target_phi < 0)
         
-        #for j in range (0,6): # dividir sleep para leer coordenadas
-            #xx = gps.x*100 - xo
-            #yy = gps.y*100 - yo  
-            #time.sleep(0.1)
-        
-        #target_phi = phi_par - 180
-        #target_phi = target_phi + 360 * (target_phi < 0)
-        
-        #for j in range (0,6):
-            #xx = gps.x*100 - xo 
-            #yy = gps.y*100 - yo  
-            #time.sleep(0.1)
+        for j in range (0,40): # dividir sleep para leer coordenadas
+            time.sleep(0.1) # dobla durante 30 * 0.1s
+            xx = gps.x*100 - xo
+            yy = gps.y*100 - yo  
 
         # -------------SEGUIR PARALELA DESDE (x1(i+1),y1(i+1)) A (x2(i+1),y2(i+1) ESTE A OESTE-----------------
         etapa = 4
@@ -139,16 +132,19 @@ def go_en_campo():
             target_phi = phi_par - dist_rp * 0.5
             # print ("phi_par=",round(phi_par)," dist_rp=",round(dist_rp)," target_phi=",round(target_phi)," gps.phi=",round(gps.phi))
         
-        # ------------- DOBLAR 180 GRADOS A LA DERECHA ------------------------
+        # ------------- DOBLAR A LA DERECHA 3s ------------------------
         etapa = 5
-        target_phi = phi_par + 180
-        if target_phi > 360:
-            target_phi = target_phi - 360
-        time.sleep(4)
+        target_phi = phi_par + 90
+        target_phi = target_phi - 360 * (target_phi > 360)
 
+        for j in range (0,30): # dividir sleep para leer coordenadas
+            time.sleep(0.1) # dobla durante 10 * 0.1 = 1s
+            xx = gps.x*100 - xo
+            yy = gps.y*100 - yo  
+        
         if i+2 > num_par : # chequear indice de la siguiente paralela
-            # print ("terminó el trabajo por el lado 2")
             parar = 1
             print("terminó el trabajo por el lado 2")
+    
     print ("terminó")
     parar = 1
