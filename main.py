@@ -30,6 +30,10 @@ start_time = 0
 traccion.set_pwm_suma_y_diff(0, 0) 
 #exit(0)
 
+def t(s):
+    # agrega tabs para imprimir
+    return "\t"+s+"\t"
+
 def tick():
     global start_time
     e_phi = 0
@@ -71,7 +75,7 @@ def tick():
             traccion.set_pwm_suma_y_diff(50, 0 - d_pwm)
             #traccion.set_pwm_suma_y_diff(0,0)
 
-            print ("f",gps.fix,"  e",en_campo.etapa,"  Y0_p",en_campo.Y0_p,"  target phi", en_campo.target_phi,"  e_phi", round(e_phi),"  d_pwm=",round(d_pwm),"  x=",round(en_campo.xx),"  y=",round(en_campo.yy))
+    print (gps.fix,t("g_phi"),gps.phi, t("e"),en_campo.etapa, t("Y0_p"),en_campo.Y0_p, t("t_phi"),en_campo.target_phi, t("e_phi"),round(e_phi), t("d_pwm"),round(d_pwm), t("x"),round(en_campo.xx), t("y"),round(en_campo.yy))
 
 import threading, traceback
 

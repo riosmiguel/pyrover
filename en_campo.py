@@ -15,7 +15,7 @@ import en_casa
 
 target_phi = 0 # output para main
 dist_rp = 0 # distancia rover a paralela
-# der = 0 # variable bool, 1 = dobla derecha, 0 = dobla izquierda
+Y0_p = 0
 
 def inicializar():
     gps.inicializar()
@@ -24,7 +24,7 @@ def inicializar():
 
 def go_en_campo():
     global target_phi, parar, etapa
-    global xx, yy
+    global xx, yy, Y0_p
     
     tg_p = en_casa.tg_p # cte, pendiente de paralelas
     ancho = en_casa.ancho
@@ -42,7 +42,6 @@ def go_en_campo():
     parar = 0
     etapa = 0
     phi_par = 0
-    Y0_p = 0
 
     while(gps.fix < 4):
         #print( "\nfix =", gps.fix)
@@ -68,19 +67,6 @@ def go_en_campo():
 
     phi_par = (90 - math.degrees(math.atan2(tg_p,1)) + 360) % 360 # direccion en grados de tg_p, entre 0 y 180
     aux = (tg_p**2 + 1)**0.5
-
-    # --- DECIDIR PARA QUE LADO DOBLA Y DOBLAR POR 1S ----
-    
-    # der = (gps.phi - phi_par > 180) + (gps.phi - phi_par < 0) # der=1 derecha, der=0 izquierda
-    # etapa = 2
-
-    #for i in range (0,15): # doblar
-        # target_phi = abs(gps.phi - phi_par)*((der == 0) - (der == 1))
-        
-        # xx = gps.x*100 - xo
-        # yy = gps.y*100 - yo
-
-        # time.sleep(0.1)
 
     # --- RECORRER SEGMENTOS DE PARALELAS  -------------------------
     
@@ -110,7 +96,7 @@ def go_en_campo():
         target_phi = target_phi + 360 * (target_phi < 0)
         
         for j in range (0,40): # dividir sleep para leer coordenadas
-            time.sleep(0.1) # dobla durante 30 * 0.1s
+            time.sleep(0.1) # dobla durante 40 * 0.1s
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo  
 
@@ -132,13 +118,13 @@ def go_en_campo():
             target_phi = phi_par - dist_rp * 0.5
             # print ("phi_par=",round(phi_par)," dist_rp=",round(dist_rp)," target_phi=",round(target_phi)," gps.phi=",round(gps.phi))
         
-        # ------------- DOBLAR A LA DERECHA 3s ------------------------
+        # ------------- DOBLAR A LA DERECHA 4s ------------------------
         etapa = 5
         target_phi = phi_par + 90
         target_phi = target_phi - 360 * (target_phi > 360)
 
-        for j in range (0,30): # dividir sleep para leer coordenadas
-            time.sleep(0.1) # dobla durante 10 * 0.1 = 1s
+        for j in range (0,40): # dividir sleep para leer coordenadas
+            time.sleep(0.1) # dobla durante 40 * 0.1s
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo  
         
