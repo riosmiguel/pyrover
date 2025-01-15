@@ -83,9 +83,11 @@ def go_en_campo():
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo
 
-            dist_rp = (yy - xx*tg_p + Y0_p)/aux # distancia rover a paralela i
+            dist_rp = (yy - xx*tg_p - Y0_p)/aux # distancia rover a paralela i
+
             target_phi = phi_par + dist_rp * 0.5 # 0.5= factor de corrección cm a grados
-            #print ("phi_par=",round(phi_par)," dist_rp=",round(dist_rp)," target_phi=",round(target_phi)," gps.phi=",round(gps.phi))
+            target_phi = target_phi + 360 * ((target_phi < 0) + (target_phi > 360))
+            
         
         if i+1 >= num_par : # terminó el trabajo por el lado 1
                 parar = 1
@@ -114,9 +116,11 @@ def go_en_campo():
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo
 
-            dist_rp = (yy - xx*tg_p + Y0_p)/aux # distancia rover a paralela i+1
-            target_phi = phi_par - dist_rp * 0.5
-            # print ("phi_par=",round(phi_par)," dist_rp=",round(dist_rp)," target_phi=",round(target_phi)," gps.phi=",round(gps.phi))
+            dist_rp = (yy - xx*tg_p - Y0_p)/aux # distancia rover a paralela i+1
+
+            target_phi = phi_par - dist_rp * 0.5 # * * * OJO de Este a Oeste cambia el signo de dist_rp * * *
+            target_phi = target_phi + 360 * ((target_phi < 0) - (target_phi>360))
+            
         
         # ------------- DOBLAR A LA DERECHA 1s ------------------------
         etapa = 5
@@ -127,13 +131,6 @@ def go_en_campo():
             time.sleep(0.1) # dobla durante 10 * 0.1s
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo
-
-        target_phi = phi_par
-
-        for j in range (0,10): # dividir sleep para leer coordenadas
-            time.sleep(0.1) # dobla durante 10 * 0.1s
-            xx = gps.x*100 - xo
-            yy = gps.y*100 - yo 
 
         
         if i+2 > num_par : # chequear indice de la siguiente paralela
