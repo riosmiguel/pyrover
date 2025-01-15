@@ -57,7 +57,7 @@ def go_ntrip():
                 
                 ret = puerto_com.write(resp)
                 cnt = cnt + 1
-                time.sleep(2)
+                time.sleep(1)
 
         except Exception:
             print(traceback.format_exc(-1))

@@ -28,8 +28,8 @@ def tick():
 
     gps = en_campo.gps
     
-    if 1==12:
-        traccion.set_pwm_and_ratio(0, 0)
+    if 1==1:
+        traccion.set_pwm_and_ratio(20, 0)
 
     elif gps.fix < 3: # espera
         traccion.set_pwm_and_ratio(0, 0)
@@ -41,7 +41,7 @@ def tick():
         elapsed_secs = time.time() - start_time
 
         if(elapsed_secs < 3): # empieza moviendo en recta 3s
-            pwm = 10 * elapsed_secs + 20
+            pwm = 3 * elapsed_secs + 10
             traccion.set_pwm_and_ratio(pwm, 0)
 
         elif(en_campo.parar == 1): # terminar cuando termina el trabajo
