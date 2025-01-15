@@ -61,15 +61,16 @@ def tick():
             d_pwm = e_phi / 90
             traccion.set_pwm_and_ratio(25, d_pwm)
 
-    print (gps.fix,t("e"),en_campo.etapa, t("dist rp"),round(en_campo.dist_rp), t("t_phi"),round(en_campo.target_phi), t("e_phi"),round(e_phi), t("d_pwm"),round(d_pwm), t("x"),round(en_campo.xx), t("y"),round(en_campo.yy))
+
     print (gps.fix, \
         t("x"),round(en_campo.xx), \
         t("y"),round(en_campo.yy), \
         t("gφ"),round(gps.phi), \
         t("e"),en_campo.etapa, \
+        t("dist rp"),round(en_campo.dist_rp), \
         t("Y0_p"),round(en_campo.Y0_p), \
         t("tφ"),round(en_campo.target_phi), \
-        t("eφ"),round(e_phi), \
+        t("eφ"),round(e_phi) \
     )
 
 import threading, traceback
