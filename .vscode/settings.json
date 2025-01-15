@@ -7,5 +7,6 @@
     "git.postCommitCommand": "sync",
     "git.closeDiffOnOperation": true,
     "git.showPushSuccessNotification": true,
-    "git.useEditorAsCommitInput": false
+    "git.useEditorAsCommitInput": false,
+    "workbench.colorTheme": "Default Dark+"
 }

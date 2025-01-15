@@ -2,14 +2,22 @@ testing = False
 
 if testing:
     import traccion_test as traccion
-    #import rpm_test as rpm
 else:    
     import traccion
-    #import rpm
     
 import en_campo
 import log
 import time
+
+from gpiozero import Button
+
+button = Button(4)
+while 1==1:
+    print(button.value)
+    time.sleep(1)
+
+exit(0)
+
 traccion.inicializar()
 
 log.inicializar()
