@@ -10,19 +10,13 @@ import log
 import time
 
 from gpiozero import Button
-
 button = Button(4)
-while 1==1:
-    print(button.value)
-    time.sleep(1)
-
-exit(0)
-
-traccion.inicializar()
 
 log.inicializar()
-en_campo.inicializar()
 
+traccion.inicializar()
+traccion.set_pwm_and_ratio(0, 0)
+en_campo.inicializar()
 
 def t(s):
     # agrega tabs para imprimir
@@ -36,10 +30,14 @@ def tick():
 
     gps = en_campo.gps
     
-    if 1==1:
+    if 1==10:
         traccion.set_pwm_and_ratio(0, 0)
 
-    elif gps.fix < 3: # espera
+    elif button.value == 1:
+        traccion.set_pwm_and_ratio(0, 0)
+        print("-", end="")
+
+    elif gps.fix < 3 or button.value == 1:
         traccion.set_pwm_and_ratio(0, 0)
 
     else:
@@ -73,12 +71,12 @@ def tick():
     print (gps.fix, \
         t("x"),round(en_campo.xx), \
         t("y"),round(en_campo.yy), \
-        t("gφ"),round(gps.phi), \
+        t("g_phi"),round(gps.phi), \
         t("e"),en_campo.etapa, \
         t("dist rp"),round(en_campo.dist_rp), \
         t("Y0_p"),round(en_campo.Y0_p), \
-        t("tφ"),round(en_campo.target_phi), \
-        t("eφ"),round(e_phi) \
+        t("t_phi"),round(en_campo.target_phi), \
+        t("e_phi"),round(e_phi) \
     )
 
 import threading, traceback
