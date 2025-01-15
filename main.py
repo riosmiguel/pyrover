@@ -29,7 +29,7 @@ def tick():
     gps = en_campo.gps
     
     if 1==1:
-        traccion.set_pwm_and_ratio(20, 0)
+        traccion.set_pwm_and_ratio(0, 0)
 
     elif gps.fix < 3: # espera
         traccion.set_pwm_and_ratio(0, 0)
@@ -50,7 +50,7 @@ def tick():
 
         else: # trabaja
             #calcular PWM usando phi (dirección real del rover) y target_phi (dirección ideal)
-            e_phi = gps.phi - en_campo.target_phi
+            e_phi = en_campo.target_phi - gps.phi
 
             if (abs(e_phi) > 180):
                 if(e_phi>0):
@@ -59,9 +59,17 @@ def tick():
                     e_phi = 360 - abs(e_phi)
             
             d_pwm = e_phi / 90
-            traccion.set_pwm_and_ratio(25, 0 - d_pwm)
+            traccion.set_pwm_and_ratio(25, d_pwm)
 
-    print (gps.fix,t("g_phi"),round(gps.phi), t("e"),en_campo.etapa, t("Y0_p"),round(en_campo.Y0_p), t("t_phi"),round(en_campo.target_phi), t("e_phi"),round(e_phi), t("d_pwm"),round(d_pwm), t("x"),round(en_campo.xx), t("y"),round(en_campo.yy))
+    print (gps.fix, \
+        t("x"),round(en_campo.xx), \
+        t("y"),round(en_campo.yy), \
+        t("gφ"),round(gps.phi), \
+        t("e"),en_campo.etapa, \
+        t("Y0_p"),round(en_campo.Y0_p), \
+        t("tφ"),round(en_campo.target_phi), \
+        t("eφ"),round(e_phi), \
+    )
 
 import threading, traceback
 

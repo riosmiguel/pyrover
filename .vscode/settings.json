@@ -4,5 +4,8 @@
     "git.autoStash": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
-    "git.postCommitCommand": "sync"
+    "git.postCommitCommand": "sync",
+    "git.closeDiffOnOperation": true,
+    "git.showPushSuccessNotification": true,
+    "git.useEditorAsCommitInput": false
 }
