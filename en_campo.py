@@ -83,7 +83,7 @@ def go_en_campo():
             xx = gps.x*100 - xo
             yy = gps.y*100 - yo
 
-            dist_rp = (yy - xx*tg_p - Y0_p)/aux # distancia rover a paralela i
+            dist_rp = (yy - xx*tg_p + Y0_p)/aux # distancia rover a paralela i
             target_phi = phi_par + dist_rp * 0.5 # 0.5= factor de corrección cm a grados
             #print ("phi_par=",round(phi_par)," dist_rp=",round(dist_rp)," target_phi=",round(target_phi)," gps.phi=",round(gps.phi))
         
