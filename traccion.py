@@ -5,8 +5,8 @@ import log
 
 def inicializar():
 	global motor_izq, motor_der
-	motor_izq = Motor(12, 13)
-	motor_der = Motor(18, 19)
+	motor_izq = Motor(12, 18)
+	motor_der = Motor(13, 19)
 
 
 def set_pwm_and_ratio(pwm, ratio):
@@ -55,12 +55,12 @@ class Motor:
 				if(pwm>100) : pwm = 100
 				self.gpio_bw.value = 0
 				self.gpio_fw.value = pwm/100.0
-				self.gpio_fw.frequency = 200+pwm * 10
+				self.gpio_fw.frequency = 1200
 			else:
 				if(pwm<-100) : pwm = -100
 				self.gpio_fw.value = 0
 				self.gpio_bw.value = -pwm/100.0
-				self.gpio_bw.frequency = 200-pwm * 10
+				self.gpio_bw.frequency = 1200
 
 	def getValue(self):
 		if (self.gpio_fw.value > 0):
