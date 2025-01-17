@@ -71,10 +71,6 @@ def tick():
         t("x"),round(en_campo.xx), \
         t("y"),round(en_campo.yy), \
         t("g_phi"),round(gps.phi), \
-        t("e"),en_campo.etapa, \
-        t("dist_rp"),round(en_campo.dist_rp,2), \
-        t("Y0_p"),round(en_campo.Y0_p), \
-        t("t_phi"),round(en_campo.target_phi), \
         t("e_phi"),round(e_phi) \
     )
     
