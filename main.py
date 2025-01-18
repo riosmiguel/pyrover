@@ -2,7 +2,7 @@ testing = True
 
 if testing:
     import traccion_test as traccion
-    import gps_test_xy as gps
+    import gps_test_tracc as gps
 else:    
     import traccion
     import gps
@@ -19,7 +19,7 @@ import puntos
 pts = puntos.pts
 
 import log
-import time, math
+import time, math, sys
 
 log.inicializar()
 traccion.inicializar()
@@ -55,42 +55,48 @@ def tick():
         elapsed_secs = time.time() - start_time
 
         if (elapsed_secs < 2): # empieza moviendo en recta 3s
-            pwm = 10 * elapsed_secs + 10
+            pwm = 10 * elapsed_secs + 5
             traccion.set_pwm_and_ratio(pwm, 0)
 
-        elif (len(pts) == 0): # terminar cuando termina el trabajo
-            traccion.set_pwm_and_ratio(0,0)
-            print("parar")
-
-        else: 
+        else:
             #calcular PWM usando phi (dirección real del rover) y target_phi (dirección ideal)
-            pt = pts.pop(0)
             dx = pt[0] - gps.x
             dy = pt[1] - gps.y
-        
-            dist_sq = dx*dx + dy*dy
+            while(dx*dx + dy*dy < 50 * 50):
+                if(len(pts)==0):
+                    traccion.set_pwm_and_ratio(0,0)
+                    sys.exit()
+                pt = pts.pop(0)
+                dx = pt[0] - gps.x
+                dy = pt[1] - gps.y
+
             target_phi = math.degrees(math.atan2(dx, dy)) # % 360
 
-            e_phi = (target_phi - gps.phi) % 360 - 180
+            e_phi = (target_phi - gps.phi + 180) % 360 - 180
             d_pwm = e_phi / 90
+
+            if testing and round(elapsed_secs * 1.6 % 6)==5: d_pwm = 0.35
+            
             traccion.set_pwm_and_ratio(25, d_pwm)
 
     print (gps.fix, \
-        t("gps_x"),round(gps.x), \
-        t("gps_y"),round(gps.y), \
-        t("gps_phi"),round(gps.phi), \
-        
-        t("pt_x"),round(pt[0]), \
-        t("pt_y"),round(pt[1]), \
-        t("pt_phi"),round(target_phi), \
-        t("e_phi"),round(e_phi) \
+        "\t",round(gps.x), \
+        "\t",round(gps.y), \
+        "\t",round(gps.phi), \
+        "\t  |", \
+        "\t",round(pt[0]), \
+        "\t",round(pt[1]), \
+        "\t",round(target_phi), \
+        "\t  e", \
+        "\t",round(e_phi), \
+        "\t",len(pts) \
     )
     
 
 import threading, traceback
 
 while True:
-    interval = 0.2
+    interval = 0.125
     tick_start_time = time.time()
     try:
         tick()

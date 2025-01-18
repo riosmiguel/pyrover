@@ -1,9 +1,12 @@
-import math
+import math, random
 
-for i in range(-720, 720, 45):
-    print (i,"\t", i % 360)
+random.seed(0)
 
-# exit(0)
+for i in range(-360, 360, 45):
+    #print (i,"\t", (i+180) % 360 - 180)
+    print(random.gauss(0,0))
+
+exit(0)
 
 def phi(dx, dy):
     phi = (90 - math.degrees(math.atan2(dy, dx)) + 360) % 360
