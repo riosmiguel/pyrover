@@ -112,8 +112,8 @@ def procesar(lat, lon, alt): # datos
 	y_viejo = y
 
 	ned = navpy.lla2ned(lat, lon, alt, -31.711,-55.985, 0)
-	y = ned[0] # **** EN METROS ******
-	x = ned[1]
+	y = ned[0] * 100 # **** Centimetrios ******
+	x = ned[1] * 100
 	#z = -ned[2]
 
 	lecturas = lecturas + 1
@@ -131,6 +131,7 @@ def procesar(lat, lon, alt): # datos
 	sm_dx = (sm_dx * alpha + dx) / (alpha + 1)
 	sm_dy = (sm_dy * alpha + dy) / (alpha + 1)
 
-	phi = (90 - math.degrees(math.atan2(sm_dy, sm_dx)) + 360) % 360 # da la direccion en grados respecto al Norte
+	#phi = (90 - math.degrees(math.atan2(sm_dy, sm_dx)) + 360) % 360 # da la direccion en grados respecto al Norte
+	phi = math.degrees(math.atan2(sm_dx, sm_dy))
 
 	return True

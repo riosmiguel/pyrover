@@ -47,7 +47,8 @@ def go_gps_test():
 		dx = x - x_viejo
 		dy = y - y_viejo
 		if ((dx != 0 or dy != 0) and (lecturas > 0)):
-			phi = (90 - math.degrees(math.atan2(dx, dy)) + 360) % 360 # da la direccion en grados respecto al Norte
+			#phi = (90 - math.degrees(math.atan2(dx, dy)) + 360) % 360 # da la direccion en grados respecto al Norte
+			phi = math.degrees(math.atan2(dx, dy))
 		vel = math.sqrt(dx*dx + dy*dy) / 2 #cm/s
 		lecturas = lecturas + 1
 		time.sleep(2)

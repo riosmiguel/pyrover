@@ -5,7 +5,7 @@ import sys, os, threading, time
 def inicializar():
 	threading.Thread(target=go_teclado, daemon=True).start()
 
-def set_pwm_suma_y_diff(suma, diff):
+def set_pwm_and_ratio(pwm, ratio):
 	pass
 
 
