@@ -112,8 +112,9 @@ def procesar(lat, lon, alt): # datos
 	y_viejo = y
 
 	ned = navpy.lla2ned(lat, lon, alt, -31.711,-55.985, 0)
-	y = ned[0] * 100 # **** Centimetrios ******
-	x = ned[1] * 100
+	x = ned[1] * 100 + 3870
+	y = ned[0] * 100 + 2580 # **** Centimetrios ******
+	
 	#z = -ned[2]
 
 	lecturas = lecturas + 1

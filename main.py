@@ -1,4 +1,4 @@
-testing = True
+testing = False
 
 if testing:
     import traccion_test as traccion
@@ -62,7 +62,7 @@ def tick():
             #calcular PWM usando phi (dirección real del rover) y target_phi (dirección ideal)
             dx = pt[0] - gps.x
             dy = pt[1] - gps.y
-            while(dx*dx + dy*dy < 50 * 50):
+            while(dx*dx + dy*dy < 100 * 100):
                 if(len(pts)==0):
                     traccion.set_pwm_and_ratio(0,0)
                     sys.exit()
@@ -87,8 +87,8 @@ def tick():
         "\t",round(pt[0]), \
         "\t",round(pt[1]), \
         "\t",round(target_phi), \
-        "\t  e", \
-        "\t",round(e_phi), \
+        "\t  |", \
+        "\t",round(gps.vel), \
         "\t",len(pts) \
     )
     
