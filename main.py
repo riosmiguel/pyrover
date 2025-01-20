@@ -18,9 +18,9 @@ else:
 import puntos
 pts = puntos.pts
 
-import log
-import time, math, sys
+import log, joystick
 
+joystick.inicializar()
 log.inicializar()
 traccion.inicializar()
 traccion.set_pwm_and_ratio(0, 0)
@@ -30,10 +30,16 @@ def t(s):
     # agrega tabs para imprimir
     return "\t"+s+"="
 
+import time, math, sys
+
 start_time = 0
 pt = pts.pop(0)
+keyRatio = 0
+keyPwm = 0
+
 def tick():
     global start_time, pt
+    global keyRatio
     e_phi = 0
     d_pwm = 0
     target_phi = 0
@@ -44,6 +50,28 @@ def tick():
 
     elif 1==12:
         traccion.set_pwm_and_ratio(20, 0)
+
+    elif joystick.key != "a":
+        key = joystick.key.lower()
+        if key == " ":
+            keyRatio = 0
+            keyPwm = 0
+        if key == "i":
+            keyRatio = 0
+            keyPwm += 10
+        if key == "k":
+            keyRatio = 0
+            keyPwm -= 10
+        if key == "l":
+            keyRatio += 0.1
+        if key == "j":
+            keyRatio -= 0.1
+        if keyPwm > 100: keyPwm = 100
+        if keyPwm < 0: keyPwm = 0
+        if keyRatio > 1: keyRatio = 1
+        if keyRatio < 0: keyRatio = 0
+        traccion.set_pwm_and_ratio(keyPwm, keyRatio)
+        print("+", end="")
 
     elif gps.fix < 4 or button.value == 1:
         traccion.set_pwm_and_ratio(0, 0)
@@ -73,11 +101,11 @@ def tick():
             target_phi = math.degrees(math.atan2(dx, dy)) # % 360
 
             e_phi = (target_phi - gps.phi + 180) % 360 - 180
-            d_pwm = e_phi / 90
+            d_pwm = e_phi / 80
 
             if testing and round(elapsed_secs * 1.6 % 6)==5: d_pwm = 0.35
             
-            traccion.set_pwm_and_ratio(25, d_pwm)
+            traccion.set_pwm_and_ratio(20, d_pwm)
 
     print (gps.fix, \
         "\t",round(gps.x), \
