@@ -33,8 +33,8 @@ def go_pilotoSim():
     y2 = poligono.y2
     X = poligono.X
     Y = poligono.Y
-    xo = poligono.xV_min + 120 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
-    yo = poligono.yV_min + 120
+    xo = poligono.xV_min + 850 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
+    yo = poligono.yV_min + 920
     xx = 0
     yy = 0
     etapa = 0
@@ -49,19 +49,17 @@ def go_pilotoSim():
     while dist_rO_sq > 1600:
         time.sleep(0.1) # sleep para que no quede usando 100% cpu
         
-        e_phi = target_phi - phi
+        e_phi = target_phi - gps.phi
         e_phi = e_phi + 360 * ((e_phi < 0) -(e_phi > 360))
 
-        phi = phi + e_phi / 10 # simular accion de motores
-    
-        xx = xx + 10 * math.sin(phi * 3.141593 / 180) # simular mov del rover
-        yy = yy + 10 * math.cos(phi * 3.141593 / 180)
-        
+        xx = gps.x * 100 - xo
+        yy = gps.y * 100 - yo
+
         dist_rO_sq = xx**2 + yy**2 # cuadrado distancia al origen
 
         target_phi = (90 - math.degrees(math.atan2(yy, xx)) + 360) % 360 + 180 # sentido hacia el origen
 
-        # print("xx", round(xx)," yy", round(yy), " e_phi", round(e_phi)," dist_rO_sq", round(dist_rO_sq))
+        print("xx", round(xx)," yy", round(yy), " e_phi", round(e_phi)," dist_rO_sq", round(dist_rO_sq))
     
     print ("llegó al origen")
 
@@ -83,13 +81,13 @@ def go_pilotoSim():
             
             dist_rp = (yy - xx*tg_p - Y0_p)/aux # distancia rover a paralela i
             
-            e_phi = target_phi + dist_rp - phi # simular correccion
+            e_phi = target_phi + dist_rp - gps.phi # simular correccion
             phi = phi + e_phi / 10 # simular accion de motores
     
-            xx = xx + 10 * math.sin(phi * 3.141593 / 180) # simular mov del rover
-            yy = yy + 10 * math.cos(phi * 3.141593 / 180)    
+            xx = gps.x * 100 - xo
+            yy = gps.y * 100 - yo 
             
-            # print("xx", round(xx)," yy", round(yy)," target_phi", round(target_phi)," e_phi", round(e_phi)," dist_rp", round(dist_rp))
+            print("xx", round(xx)," yy", round(yy)," target_phi", round(target_phi)," e_phi", round(e_phi)," dist_rp", round(dist_rp))
         
         if i+1 >= num_par : # terminó el trabajo por el lado 1
                 parar = 1
@@ -102,12 +100,13 @@ def go_pilotoSim():
         for j in range (0,15): # dividir sleep para leer coordenadas
             time.sleep(0.1) # dobla durante 10 * 0.1s
 
-            phi = phi - 10 # simular acción de motores = -10 grados cada 0.1s
-            phi = phi + 360 * (phi < 0)
-            xx = xx + 10 * math.sin(phi * 3.141593 / 180) # simular mov del rover
-            yy = yy + 10 * math.cos(phi * 3.141593 / 180)
+            e_phi = -90 # simular acción de motores = -10 grados cada 0.1s
+            e_phi = e_phi + 360 * (e_phi < 0)
 
-            # print("xx", round(xx)," yy", round(yy)," phi", round(phi))
+            xx = gps.x * 100 - xo
+            yy = gps.y * 100 - yo
+
+            print("xx", round(xx)," yy", round(yy)," phi", round(phi))
 
         print("doblo hacia el corte Oeste nro", i+1)
         
@@ -123,14 +122,12 @@ def go_pilotoSim():
 
             dist_rp = (yy - xx*tg_p - Y0_p)/aux # distancia rover a paralela
             
-            e_phi = target_phi - dist_rp - phi # simular cálculo de corrección, Este a Oeste cambia signo dist_rp
-            
-            phi = phi + e_phi / 10 # simular accion de motores
+            e_phi = target_phi - dist_rp - gps.phi # simular cálculo de corrección, Este a Oeste cambia signo dist_rp
     
-            xx = xx + 10 * math.sin(phi * 3.141593 / 180) # simular mov del rover
-            yy = yy + 10 * math.cos(phi * 3.141593 / 180)
+            xx = gps.x * 100 - xo
+            yy = gps.y * 100 - yo
 
-            # print("xx", round(xx)," yy", round(yy)," target_phi", round(target_phi)," e_phi", round(e_phi)," dist_rp", round(dist_rp))
+            print("xx", round(xx)," yy", round(yy)," target_phi", round(target_phi)," e_phi", round(e_phi)," dist_rp", round(dist_rp))
      
         print("llegó al corte Este nro", i+1)
         
@@ -141,12 +138,12 @@ def go_pilotoSim():
         for j in range (0,15): # dividir sleep para leer coordenadas
             time.sleep(0.1) # dobla durante 15 * 0.1s
             
-            phi = phi + 10 # simular acción de motores = 10 grados cada 0.1s
-            phi = phi - 360 * (phi > 360)
-            xx = xx + 10 * math.sin(phi * 3.141593 / 180) # simular mov del rover
-            yy = yy + 10 * math.cos(phi * 3.141593 / 180)
+            e_phi = 90 # simular acción de motores = 10 grados cada 0.1s
+            
+            xx = gps.x * 100 - xo
+            yy = gps.y * 100 - yo
 
-            # print("xx", round(xx)," yy", round(yy)," phi", round(phi))
+            print("xx", round(xx)," yy", round(yy)," phi", round(phi))
         
         print("doblo hacia el corte Este nro", i+2)
 

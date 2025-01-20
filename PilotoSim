@@ -1,8 +1,12 @@
 
 
 '''
-# Calcular target_phi para usar en main
-# cuando va hacia un punto, target_phi = dirección hacia ese punto
+# Diferencias con piloto.py: 
+# 1) gps está deshabilitado.
+# 2) En vez de leer gps.phi calcula un nuevo phi.
+# 3) En vez de leer coordenadas (gps.x, gps.y) calcula nuevas coordenadas (xx, yy)
+
+# Los dos calculan e_phi para usar en main
 
 testing = False
 

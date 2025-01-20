@@ -2,9 +2,14 @@
 import piloto
 import log
 import time
+import traccion
 
 log.inicializar()
 piloto.inicializar()
+traccion.inicializar()
+traccion.set_pwm_and_ratio(20,0)
+while True:
+    pass
 
 def t(s):
     # agrega tabs para imprimir
@@ -26,6 +31,7 @@ def tick():
             
     if(piloto.parar == 1): # terminar cuando termina el trabajo
             print("parar")
+            traccion.set_pwm_and_ratio(0,0)
 
     else: # trabaja        
             e_phi = piloto.e_phi
@@ -36,6 +42,9 @@ def tick():
                 else:
                     e_phi = 360 - abs(e_phi)
 
+            traccion.set_pwm_and_ratio(25, e_phi/120)
+ 
+    """
     print (
         t("e"),piloto.etapa, \
         t("x"),round(piloto.xx), \
@@ -45,6 +54,7 @@ def tick():
         t("target"),round(piloto.target_phi), \
         t("e_phi"),round(e_phi) \
     )
+    """
 import threading, traceback
 
 while True:
