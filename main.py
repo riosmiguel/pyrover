@@ -18,13 +18,14 @@ else:
 import puntos
 pts = puntos.pts
 
-import log, joystick
-
+import log
+import  joystick
 joystick.inicializar()
 log.inicializar()
 traccion.inicializar()
 traccion.set_pwm_and_ratio(0, 0)
 gps.inicializar()
+
 
 def t(s):
     # agrega tabs para imprimir
@@ -39,7 +40,7 @@ keyPwm = 0
 
 def tick():
     global start_time, pt
-    global keyRatio
+    global keyRatio, keyPwm
     e_phi = 0
     d_pwm = 0
     target_phi = 0
@@ -51,28 +52,7 @@ def tick():
     elif 1==12:
         traccion.set_pwm_and_ratio(20, 0)
 
-    elif joystick.key != "a":
-        key = joystick.key.lower()
-        if key == " ":
-            keyRatio = 0
-            keyPwm = 0
-        if key == "i":
-            keyRatio = 0
-            keyPwm += 10
-        if key == "k":
-            keyRatio = 0
-            keyPwm -= 10
-        if key == "l":
-            keyRatio += 0.1
-        if key == "j":
-            keyRatio -= 0.1
-        if keyPwm > 100: keyPwm = 100
-        if keyPwm < 0: keyPwm = 0
-        if keyRatio > 1: keyRatio = 1
-        if keyRatio < 0: keyRatio = 0
-        traccion.set_pwm_and_ratio(keyPwm, keyRatio)
-        print("+", end="")
-
+    
     elif gps.fix < 4 or button.value == 1:
         traccion.set_pwm_and_ratio(0, 0)
 
@@ -83,7 +63,7 @@ def tick():
         elapsed_secs = time.time() - start_time
 
         if (elapsed_secs < 2): # empieza moviendo en recta 3s
-            pwm = 10 * elapsed_secs + 5
+            pwm = 20 * elapsed_secs + 5
             traccion.set_pwm_and_ratio(pwm, 0)
 
         else:
@@ -105,7 +85,7 @@ def tick():
 
             if testing and round(elapsed_secs * 1.6 % 6)==5: d_pwm = 0.35
             
-            traccion.set_pwm_and_ratio(20, d_pwm)
+            traccion.set_pwm_and_ratio(70, d_pwm)
 
     print (gps.fix, \
         "\t",round(gps.x), \

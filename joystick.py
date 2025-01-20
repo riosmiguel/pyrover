@@ -4,12 +4,12 @@ key = ""
 
 def inicializar():
     import threading
-    threading.Thread(target=go_joystick, daemon=True).start()
+    #threading.Thread(target=go_joystick, daemon=True).start()
 
 def go_joystick():
-
+    global key
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(("localhost", 23))
+    s.bind(("localhost", 44))
     while True:
         try:
             s.listen()
