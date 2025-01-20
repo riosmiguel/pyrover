@@ -33,8 +33,8 @@ def go_pilotoSim():
     y2 = poligono.y2
     X = poligono.X
     Y = poligono.Y
-    xo = poligono.xV_min + 850 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
-    yo = poligono.yV_min + 920
+    xo = poligono.xV_min -1200 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
+    yo = poligono.yV_min + 2000
     xx = 0
     yy = 0
     etapa = 0

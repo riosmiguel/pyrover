@@ -7,9 +7,9 @@ import traccion
 log.inicializar()
 piloto.inicializar()
 traccion.inicializar()
-traccion.set_pwm_and_ratio(20,0)
-while True:
-    pass
+traccion.set_pwm_and_ratio(0,0)
+#while True:
+#    pass
 
 def t(s):
     # agrega tabs para imprimir
@@ -42,7 +42,7 @@ def tick():
                 else:
                     e_phi = 360 - abs(e_phi)
 
-            traccion.set_pwm_and_ratio(25, e_phi/120)
+            traccion.set_pwm_and_ratio(60, e_phi/120)
  
     """
     print (
