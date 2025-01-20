@@ -1,4 +1,4 @@
-import en_campo
+import piloto
 
 # --------- INPUT POLÍGONO y DIAMETRO DE HELICE ----------- 
 # en Google Earth, abrir un proyecto, ponerle nombre, ir a medir, dibujar un polígono CONVEXO Y CERRADO
@@ -6,8 +6,8 @@ import en_campo
 # abrir el archivo con notepad, buscar el string de coordenadas, copiar y pegar en polig abajo
 
 # proyecto: 12nov
-polig = (-55.98540551273462,-31.71123305477858,0 -55.98533766874893,-31.71117392600262,0 -55.98535403790384,-31.71109034843417,0 -55.98539410982904,-31.71112730306058,0 -55.98540551273462,-31.71123305477858,0 
- )
+polig=(-55.98550472731175,-31.71131617827687,0 -55.98544274151481,-31.71125432229963,0 -55.98541908049551,-31.71114358633567,0 -55.98547132114456,-31.71119445246624,0 -55.98550472731175,-31.71131617827687,0 
+)
 ancho = 90 # es el ancho entre paralelas = diámetro de la hélice en cm
 
 # --------------------------------------------------------
@@ -184,14 +184,3 @@ print ("y1=",y1)
 print ("cortes del lado V0")
 print ("x2=",x2)
 print ("y2=",y2)
-
-
-#import pandas as pd  # Importar pandas para manejar el DataFrame
-
-#mi_lista = list(x1) # Convertir el array a una lista para usarlo en un DataFrame de pandas
-
-#df = pd.DataFrame({'Valores': mi_lista}) # Crear un DataFrame de pandas con la lista
-
-#df.to_excel('data_py_rover.xlsx', index=True)  # Exporta el DataFrame a un archivo Excel
-
-#print (mi_lista)

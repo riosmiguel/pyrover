@@ -62,4 +62,3 @@ def go_ntrip():
         except Exception:
             print(traceback.format_exc(-1))
             time.sleep(2)
-            

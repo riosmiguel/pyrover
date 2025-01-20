@@ -1,10 +1,12 @@
-    RPi PWM Outputs:  12, 13, 18, 19
-    Ardusimple Pins:  15, 14, 17, 24
+Simular movimiento. No tiene modulos gps, ntrip, traccion
+Usa coordenadas (xx, yy) y direccion (phi) simuladas en lugar de (gps.x, gps.y) y gps.phi
+simula traccion variando la direccion phi, velocidad es constante = 10*cos(phi), 10*sin(phi)
+
+# Comandos
 
 - Chequear undervoltage: `dmesg`
 - Mostrar version de Raspbian: `cat /etc/os-release`
 - Encontrar proceso en background: `ps -fC python`
-
 
 # Instalar RPi 
 
