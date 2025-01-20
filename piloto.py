@@ -1,7 +1,7 @@
 
 # Calcular target_phi para usar en main
 # cuando va hacia un punto, target_phi = dirección hacia ese punto
-
+import gps
 import math
 import time
 import poligono
@@ -12,6 +12,8 @@ phi = 0
 target_phi = 0 # output para main
 dist_rp = 0 # distancia rover a paralela
 Y0_p = 0
+xx = 0
+yy = 0
 
 def inicializar():
     gps.inicializar()

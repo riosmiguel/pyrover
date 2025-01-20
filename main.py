@@ -30,8 +30,8 @@ def tick():
     else: # trabaja        
             e_phi = piloto.e_phi
 
-            if abs(e_phi) > 180 :
-                if (e_phi > 0):
+            if (abs(e_phi) > 180):
+                if(e_phi>0):
                     e_phi = abs(e_phi) - 360
                 else:
                     e_phi = 360 - abs(e_phi)
@@ -52,8 +52,7 @@ while True:
     tick_start_time = time.time()
     try:
         tick()
-    except Exception:
-        print(traceback.format_exc(-1))
+    except Exception:        print(traceback.format_exc(-1))
 
     try:
         duration = time.time() - tick_start_time

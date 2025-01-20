@@ -13,7 +13,7 @@ else:
 
 import math
 import time
-import en_casa
+import poligono
 
 target_phi = 0 # output para main
 dist_rp = 0 # distancia rover a paralela
@@ -22,24 +22,23 @@ Y0_p = 0
 def inicializar():
     gps.inicializar()
     import threading
-    threading.Thread(target=go_en_campo, daemon=True).start()
+    threading.Thread(target=go_piloto, daemon=True).start()
 
-def go_en_campo():
-    global target_phi, parar, etapa, e_phi
+def go_piloto():
     global target_phi, parar, etapa, e_phi
     global xx, yy, Y0_p
     
-    tg_p = en_casa.tg_p # cte, pendiente de paralelas
-    ancho = en_casa.ancho
-    num_par = en_casa.num_par
-    x1 = en_casa.x1 # array de abscisas de cortes entre aristas y paralelas desde V1 en sentido creciente
-    y1 = en_casa.y1
-    x2 = en_casa.x2 # array de abscisas de cortes desde V0 en sentido decreciente
-    y2 = en_casa.y2
-    X = en_casa.X
-    Y = en_casa.Y
-    xo = en_casa.xV_min + 120 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
-    yo = en_casa.yV_min + 120
+    tg_p = poligono.tg_p # cte, pendiente de paralelas
+    ancho = poligono.ancho
+    num_par = poligono.num_par
+    x1 = poligono.x1 # array de abscisas de cortes entre aristas y paralelas desde V1 en sentido creciente
+    y1 = poligono.y1
+    x2 = poligono.x2 # array de abscisas de cortes desde V0 en sentido decreciente
+    y2 = poligono.y2
+    X = poligono.X
+    Y = poligono.Y
+    xo = poligono.xV_min + 120 # a las coordenadas del vértice se puede agregar un offset para mover todo el polígono
+    yo = poligono.yV_min + 120
     xx = 0
     yy = 0
     parar = 0
@@ -47,14 +46,13 @@ def go_en_campo():
     phi_par = 0
     e_phi = 0
     phi = 0
-    e_phi = 0
-    phi = 0
 
     while False: # (gps.fix < 0)
         #print( "\nfix =", gps.fix)
         time.sleep(0.1)
 
-    # --- IR HACIA EL ORIGEN con target_phi = arco(yy/xx) ---
+    # --- IR HACIA EL ORIGEN -----------------------
+    # calcula target_phi = arco(yy/xx)
     
     dist_rO_sq = 2000 # cuadrado de distancia rover al origen en cm
     etapa = 1
@@ -69,7 +67,6 @@ def go_en_campo():
         yy = gps.y*100 - yo
 
         dist_rO_sq = xx**2 + yy**2 # cuadrado distancia al origen
-
 
         target_phi = (90 - math.degrees(math.atan2(yy, xx)) + 360) % 360 + 180 # sentido hacia el origen
 
@@ -88,8 +85,6 @@ def go_en_campo():
         Y0_p = ancho * aux * i # corte con eje Oy de cada paralela
 
         # ---- SEGUIR PARALELA DESDE (x2(i),y2(i)) A (x1(i),y1(i) OESTE A ESTE ----
-        etapa = 2
-        target_phi = phi_par
         etapa = 2
         target_phi = phi_par
 
@@ -127,10 +122,7 @@ def go_en_campo():
         # -------------SEGUIR PARALELA DESDE (x1(i+1),y1(i+1)) A (x2(i+1),y2(i+1) ESTE A OESTE-----------------
         etapa = 4
         Y0_p = ancho * aux * (i+1) # cambiar de paralela
-        Y0_p = ancho * aux * (i+1) # cambiar de paralela
         
-        target_phi = phi_par - 180 # dirección contraria
-        target_phi = target_phi + 360 * (target_phi < 0)
         target_phi = phi_par - 180 # dirección contraria
         target_phi = target_phi + 360 * (target_phi < 0)
 
