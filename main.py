@@ -19,8 +19,6 @@ import puntos
 pts = puntos.pts
 
 import log
-import  joystick
-joystick.inicializar()
 log.inicializar()
 traccion.inicializar()
 traccion.set_pwm_and_ratio(0, 0)
