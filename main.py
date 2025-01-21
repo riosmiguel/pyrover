@@ -24,6 +24,7 @@ joystick.inicializar()
 log.inicializar()
 traccion.inicializar()
 traccion.set_pwm_and_ratio(0, 0)
+
 gps.inicializar()
 
 
